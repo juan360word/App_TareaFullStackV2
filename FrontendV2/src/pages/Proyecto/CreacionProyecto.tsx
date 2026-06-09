@@ -1,10 +1,14 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import {useForm} from 'react-hook-form'
 import ProjectForm from "../../Components/Proyecto/formProyecto"
 import type { proyectoData } from "../../types/type"
-import {CreateProyecto} from '../../services/proyectoApi'
+import {CreateProyecto} from '../../services/proyectoAPI'
+import { toast } from "react-toastify"
+import { useMutation } from "@tanstack/react-query"
+
 
 const CreacionProyecto = () => {
+    const navigate = useNavigate() 
     const valorIniciar : proyectoData ={
         proyectoName:"",
         clientename:"",
@@ -12,8 +16,21 @@ const CreacionProyecto = () => {
     }
     const {register,handleSubmit,formState:{errors}} = useForm<proyectoData>({defaultValues: valorIniciar})
 
-    const HandleForm = (data: proyectoData) => {
-        CreateProyecto(data)
+    const mutation = useMutation({
+      mutationFn: CreateProyecto,
+      onError: (error) => {
+        toast.error(error.message)
+      },
+      onSuccess: (data) => {
+        toast.success(data)
+        navigate('/') 
+      }
+    })
+
+
+    const HandleForm =  (fomrData: proyectoData) => {
+         mutation.mutate(fomrData)
+       
     }
 
   return (

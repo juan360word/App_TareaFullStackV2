@@ -1,6 +1,9 @@
 import {Outlet} from 'react-router-dom'
 import Logo from '../Components/Logo'
 import NavMenu from '../Components/NavMenu'
+import {ToastContainer,toast,Zoom } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+
 
 const AppLayout = () => {
   return (
@@ -26,6 +29,21 @@ const AppLayout = () => {
             Los derechos de esta pagina estan reservados {new Date().getFullYear()}
         </p>
     </footer>
+    <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick={false}
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="light"
+      transition={Zoom}
+    />
+
+    
     </>
   )
 }

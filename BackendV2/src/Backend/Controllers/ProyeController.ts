@@ -39,10 +39,6 @@ export  class ProyectoController {
 
             try {
                 const proyectos = await (await Proyecto.findById(id)).populate('Tasks') // se cruza la informacion
-                if(!proyectos){
-                    const error = new Error('Proyectos no encontrado')
-                    return res.status(404).json({error: error.message})
-                }
                 res.json(proyectos)
             } catch (error) {
                 console.log(error)
@@ -57,11 +53,6 @@ export  class ProyectoController {
 
             try {
                const proyecto = await Proyecto.findByIdAndUpdate(id,req.body)
-
-               if(!proyecto){
-                const error = new Error('Proyectos no encontrado')
-                return res.status(404).json({error: error.message})
-            }
 
                await proyecto.save()
                res.send('Se a Actualizado El poryecto')
