@@ -51,7 +51,7 @@ export  class ProyectoController {
 
             try {
                const proyecto = await Proyecto.findByIdAndUpdate(id, req.body, {
-                returnDocument: 'after',
+                new:true,
                 runValidators: true,
                })
                

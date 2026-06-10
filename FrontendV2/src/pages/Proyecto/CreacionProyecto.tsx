@@ -4,11 +4,12 @@ import ProjectForm from "../../Components/Proyecto/formProyecto"
 import type { proyectoData } from "../../types/type"
 import {CreateProyecto} from '../../services/proyectoAPI'
 import { toast } from "react-toastify"
-import { useMutation } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 
 
 const CreacionProyecto = () => {
     const navigate = useNavigate() 
+    const queryClient = useQueryClient() 
     const valorIniciar : proyectoData ={
         proyectoName:"",
         clientename:"",
@@ -21,8 +22,9 @@ const CreacionProyecto = () => {
       onError: (error) => {
         toast.error(error.message)
       },
-      onSuccess: (data) => {
+      onSuccess: async (data) => {
         toast.success(data)
+        await queryClient.invalidateQueries({ queryKey: ['Proyecto'] }) 
         navigate('/') 
       }
     })

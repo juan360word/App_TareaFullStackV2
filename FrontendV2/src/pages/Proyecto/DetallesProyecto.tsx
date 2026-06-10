@@ -14,6 +14,7 @@ const DetallesProyecto = () => {
         queryKey: ['editarproyecto', proyectoid],
         queryFn: () => GetProyectoid(proyectoid),
         retry: false,
+        staleTime: 0  
     })
 
     const showModal = searchParams.get('nuevaTarea') === 'true'

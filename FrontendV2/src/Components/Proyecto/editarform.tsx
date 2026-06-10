@@ -24,13 +24,7 @@ function EditarForm({ data }: EditarFormProps) {
         },
     })
 
-    useEffect(() => {
-        reset({
-            proyectoName: data.proyectoName,
-            clientename: data.clientename,
-            description: data.description,
-        })
-    }, [data, reset])
+    
 
    
     
@@ -39,10 +33,12 @@ function EditarForm({ data }: EditarFormProps) {
         onError: (error) => {
             toast.error(error.message)
         },
-        onSuccess: (response) => {
+        onSuccess: async (response) => {
+            console.log('Update exitoso, invalidando cache...')  // 👈
             toast.success(response)
-            queryClient.invalidateQueries({ queryKey: ['Proyecto'] })
-            queryClient.invalidateQueries({ queryKey: ['editarproyecto', data._id] })
+           await queryClient.invalidateQueries({ queryKey: ['Proyecto'] })
+           await queryClient.refetchQueries({ queryKey: ['Proyecto'] })
+           console.log('Cache invalidado, navegando...')  // 👈
             navigate('/')
         },
     })

@@ -31,6 +31,7 @@ export async function CreateProyecto(formdata:proyectoData ) {
 
 export async function GetProyecto( ) {
     try {
+        console.log('GetProyecto llamado')  // 👈
        const {data} = await api('/Proyectos')
        const response = safeParse(DasboProyectoSchema,data)
        if(response.success){
@@ -53,6 +54,8 @@ export async function GetProyectoid( id:Proyecto['_id']) {
 
 export async function UpdateProyecto({ id, formdata }: { id: Proyecto['_id']; formdata: proyectoData }) {
     try {
+        console.log('ID:', id)          
+        console.log('Data:', formdata)
         const { data } = await api.put(`/Proyectos/${id}`, formdata)
         return data
     } catch (error) {

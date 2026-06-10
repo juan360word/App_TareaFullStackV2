@@ -11,6 +11,7 @@ const EditarProyecto = () => {
         queryKey: ['editarproyecto', proyectoid],
         queryFn: () => GetProyectoid(proyectoid),
         retry: false,
+        staleTime: 0  
     })
 
     if (isLoading) return <p className="text-white text-2xl text-center">Cargando..</p>

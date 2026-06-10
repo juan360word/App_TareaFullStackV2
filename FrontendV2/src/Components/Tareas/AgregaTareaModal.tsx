@@ -1,4 +1,8 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
+import { useLocation } from 'react-router-dom'
+import TaskForm from '../Proyecto/TareaForm'
+import {useForm} from 'react-hook-form'
+import type { TareaData } from '@/types/type'
 
 type AddTaskModalProps = {
     open: boolean
@@ -6,6 +10,19 @@ type AddTaskModalProps = {
 }
 
 export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
+
+    const location = useLocation()
+    const queryParamas = new URLSearchParams(location.search)
+    const modalTask = queryParamas.get('nuevaTarea')
+
+    const ValorInicial : TareaData = {
+        name:'',
+        description:''
+    }
+    const {register,handleSubmit,formState:{errors}} = useForm({defaultValues: ValorInicial})
+    const hanlde = (form: TareaData) => {
+        console.log(form)
+    }
     return (
         <Dialog open={open} onClose={onClose} className="relative z-50">
             <DialogBackdrop
@@ -27,6 +44,23 @@ export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
                             Llena el formulario y crea{' '}
                             <span className="text-[#ff8906]">una tarea</span>
                         </p>
+
+                        <form action="" onSubmit={handleSubmit(hanlde)} noValidate className='mt-10 space-y-3'>
+                        
+                        <TaskForm
+                            register={register}
+                            errors={errors}
+                            />
+
+                        <input
+                         type="submit"
+                         value="Guardar Cambios"
+                         className="w-full p-3 bg-[#1A191F] text-[#a7a9be] hover:bg-white hover:text-black font-bold cursor-pointer transition-colors"
+                        />
+
+                            
+                        </form>
+
                     </DialogPanel>
                 </div>
             </div>

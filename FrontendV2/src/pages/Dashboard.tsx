@@ -16,7 +16,9 @@ const Dashboard = () => {
     queryKey: ['Proyecto'],
     queryFn: GetProyecto,
     retry:false,
-    staleTime: 1000 * 60 * 5
+    staleTime: 1000 * 60 * 5,
+    refetchOnMount: true,    // 👈
+    refetchOnWindowFocus: true  // 👈
   })
 
   const queryclient = useQueryClient()
