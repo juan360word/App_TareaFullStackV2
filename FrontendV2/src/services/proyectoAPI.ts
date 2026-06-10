@@ -1,6 +1,7 @@
 import api from '@/lib/Axios'
-import type {proyectoData} from '../types/type'
+import {DasboProyectoSchema, type proyectoData} from '../types/type'
 import { isAxiosError } from 'axios'
+import { safeParse } from 'valibot'
 
 
 
@@ -16,3 +17,19 @@ export async function CreateProyecto(formdata:proyectoData ) {
      
     }
 }
+
+export async function GetProyecto( ) {
+    try {
+       const {data} = await api('/Projectos')
+       const response = safeParse(DasboProyectoSchema,data)
+       if(response.success){
+        return response.output
+       }
+    } catch (error) {
+        if(isAxiosError(error) && error.response){
+           throw new Error(error.response.data.error)
+        }
+     
+    }
+}
+

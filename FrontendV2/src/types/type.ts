@@ -9,6 +9,10 @@ export const  proyectoSchema = v.object({
     
 })
 
+export const DasboProyectoSchema = v.array(
+   v.pick(proyectoSchema,['_id', 'proyectoName', 'clientename', 'description'])
+)
+
 export type Proyecto = v.InferOutput<typeof proyectoSchema>
 
 export type proyectoData =  Pick<Proyecto,'clientename'|'proyectoName'|'description'>

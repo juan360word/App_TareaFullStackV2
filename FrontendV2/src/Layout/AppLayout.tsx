@@ -1,7 +1,7 @@
 import {Outlet} from 'react-router-dom'
 import Logo from '../Components/Logo'
 import NavMenu from '../Components/NavMenu'
-import {ToastContainer,toast,Zoom } from 'react-toastify'
+import {ToastContainer,Zoom } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
 
 
