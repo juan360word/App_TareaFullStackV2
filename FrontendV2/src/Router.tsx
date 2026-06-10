@@ -2,6 +2,8 @@ import { createBrowserRouter } from "react-router-dom"
 import AppLayout from "./Layout/AppLayout"
 import Dashboard from "./pages/Dashboard"
 import CreacionProyecto from "./pages/Proyecto/CreacionProyecto"
+import EditarProyecto from "./pages/Proyecto/EditarProyecto"
+import  DetallesProyecto  from "./pages/Proyecto/DetallesProyecto"
 
 export const Router = createBrowserRouter([
     {
@@ -15,6 +17,14 @@ export const Router = createBrowserRouter([
             {
                 path:'/proyecto/creado',
                 element: <CreacionProyecto/>
+            },
+            {
+                path:'/proyecto/:proyectoid',
+                element: <DetallesProyecto/>
+            },
+            {
+                path:'/proyecto/:proyectoid/creado',
+                element: <EditarProyecto/>
             }
         ]
     }

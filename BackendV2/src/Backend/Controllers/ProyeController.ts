@@ -21,46 +21,50 @@ export  class ProyectoController {
     }
 
     static getTodosProyectos = async (req:Request,res:Response) => {
-
         try {
             const proyectos = await Proyecto.find({})
             res.json(proyectos)
         } catch (error) {
-            console.error()
-            exit(1)
+            console.log(error)
+            res.status(500).json({ error: 'Error al traer los proyectos' })
         }
-
-        res.send('Se llamara a todos los Proyectos')
     }
 
     static getLlamadoID= async (req:Request,res:Response) => {
-
             const {id} = req.params
 
             try {
-                const proyectos = await (await Proyecto.findById(id)).populate('Tasks') // se cruza la informacion
-                res.json(proyectos)
+                const proyecto = await Proyecto.findById(id).populate('Tasks')
+                if (!proyecto) {
+                    const error = new Error('Proyectos no encontrado')
+                    return res.status(404).json({ error: error.message })
+                }
+                res.json(proyecto)
             } catch (error) {
                 console.log(error)
                 res.status(500).json({ error: 'Error Al traer los proyectos' })
             }
-       
     }
 
     static UpdateProyecto= async (req:Request,res:Response) => {
-
             const {id} = req.params
 
             try {
-               const proyecto = await Proyecto.findByIdAndUpdate(id,req.body)
+               const proyecto = await Proyecto.findByIdAndUpdate(id, req.body, {
+                returnDocument: 'after',
+                runValidators: true,
+               })
+               
+               if (!proyecto) {
+                const error = new Error('Proyectos no encontrado')
+                return res.status(404).json({ error: error.message })
+               }
 
-               await proyecto.save()
                res.send('Se a Actualizado El poryecto')
             } catch (error) {
                 console.log(error)
-                exit(1)
+                res.status(500).json({ error: 'Error al actualizar el proyecto' })
             }
-       
     }
     static DeleteProyecto= async (req:Request,res:Response) => {
 
