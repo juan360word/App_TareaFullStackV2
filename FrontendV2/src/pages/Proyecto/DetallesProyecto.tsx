@@ -3,6 +3,7 @@ import { useQuery } from "@tanstack/react-query"
 import { GetProyectoid } from "@/services/proyectoAPI"
 import AddTaskModal from "@/Components/Tareas/AgregaTareaModal"
 import ListaTareas from "@/Components/Tareas/ListaTareas"
+import EditarTareaData from "@/Components/Tareas/EditarTareaData"
 
 const DetallesProyecto = () => {
     const navigate = useNavigate()
@@ -12,7 +13,7 @@ const DetallesProyecto = () => {
     const proyectoid = params.proyectoid!
 
     const { data, isError, isLoading } = useQuery({
-        queryKey: ['editarproyecto', proyectoid],
+        queryKey: ['proyecto', proyectoid],
         queryFn: () => GetProyectoid(proyectoid),
         retry: false,
         staleTime: 0  
@@ -48,6 +49,7 @@ const DetallesProyecto = () => {
                 </nav>
                 <ListaTareas tarea={data.Tasks}/>
                 <AddTaskModal open={showModal} onClose={closeModal} />
+                <EditarTareaData/>
             </>
         )
     }

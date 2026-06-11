@@ -3,7 +3,7 @@ import { useLocation, useParams } from 'react-router-dom'
 import TaskForm from '../Proyecto/TareaForm'
 import {useForm} from 'react-hook-form'
 import type { TareaData } from '@/types/type'
-import { useMutation } from '@tanstack/react-query'
+import { useMutation,useQueryClient } from '@tanstack/react-query'
 import { TareaService } from '@/services/TareaService'
 import { toast } from 'react-toastify'
 
@@ -21,12 +21,15 @@ export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
 
 
 
+    const queryClient = useQueryClient()
+
     const {mutate} = useMutation({
         mutationFn: TareaService ,
         onError: (error) => {
             toast.error(error.message)
         },
         onSuccess: (data) => {
+            queryClient.invalidateQueries({queryKey: ['editarproyecto', proyectoid ]})
             toast.success(data)
             reset()
             onClose()

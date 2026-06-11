@@ -17,8 +17,8 @@ const Dashboard = () => {
     queryFn: GetProyecto,
     retry:false,
     staleTime: 1000 * 60 * 5,
-    refetchOnMount: true,    // 👈
-    refetchOnWindowFocus: true  // 👈
+    refetchOnMount: true,    
+    refetchOnWindowFocus: true  
   })
 
   const queryclient = useQueryClient()

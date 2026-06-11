@@ -20,8 +20,8 @@ export const  proyectoSchema = v.object({
     _id: v.string(),
     proyectoName: v.string(),
     clientename:v.string(),
-    description:v.string()
-    
+    description:v.string(),
+    Tasks: v.array(TareaSchema)
 })
 
 export const DasboProyectoSchema = v.array(
