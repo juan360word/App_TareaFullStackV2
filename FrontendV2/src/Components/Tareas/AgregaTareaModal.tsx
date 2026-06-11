@@ -1,8 +1,11 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useParams } from 'react-router-dom'
 import TaskForm from '../Proyecto/TareaForm'
 import {useForm} from 'react-hook-form'
 import type { TareaData } from '@/types/type'
+import { useMutation } from '@tanstack/react-query'
+import { TareaService } from '@/services/TareaService'
+import { toast } from 'react-toastify'
 
 type AddTaskModalProps = {
     open: boolean
@@ -14,15 +17,42 @@ export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
     const location = useLocation()
     const queryParamas = new URLSearchParams(location.search)
     const modalTask = queryParamas.get('nuevaTarea')
+    
+
+
+
+    const {mutate} = useMutation({
+        mutationFn: TareaService ,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: (data) => {
+            toast.success(data)
+            reset()
+            onClose()
+        }
+    })
+
+    const params = useParams()
+    const proyectoid = params.proyectoid!
+
 
     const ValorInicial : TareaData = {
         name:'',
         description:''
     }
-    const {register,handleSubmit,formState:{errors}} = useForm({defaultValues: ValorInicial})
+
+
+    const {register,handleSubmit,reset,formState:{errors}} = useForm({defaultValues: ValorInicial})
+
+
     const hanlde = (form: TareaData) => {
-        console.log(form)
+        mutate({
+            formdata: form,      
+            proyectoid        
+        })
     }
+
     return (
         <Dialog open={open} onClose={onClose} className="relative z-50">
             <DialogBackdrop
