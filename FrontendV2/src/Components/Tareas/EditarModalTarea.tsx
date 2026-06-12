@@ -6,7 +6,7 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 import { toast } from 'react-toastify';
 import type { TareaData, Task } from '@/types/type';
 import TaskForm from '../Proyecto/TareaForm';
-import { GetAPITareaID, UpdateTareaService } from '@/services/TareaService';
+import { UpdateTareaService } from '@/services/TareaService';
 
 type EditTaskModalProps = {
     open: boolean
@@ -36,7 +36,8 @@ export default function EditTaskModal({ open, onClose,data,tareaid }: EditTaskMo
             toast.error(error.message)
         },
         onSuccess: (data) => {
-            queryClient.invalidateQueries({ queryKey: ['editarproyecto', proyectoid] })
+            queryClient.invalidateQueries({ queryKey: ['proyecto', proyectoid] })
+            queryClient.invalidateQueries({ queryKey: ['tarea', tareaid] })
             toast.success(data)
             reset()
             onClose()

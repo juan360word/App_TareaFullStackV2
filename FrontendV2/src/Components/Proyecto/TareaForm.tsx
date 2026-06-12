@@ -1,5 +1,5 @@
 import type{ FieldErrors, UseFormRegister } from "react-hook-form"
-import type { Task,TareaData } from "@/types/type";
+import type { TareaData } from "@/types/type";
 import Error from "../Error";
 
 type TaskFormProps = {

@@ -1,4 +1,4 @@
-import type { Task, TareaData } from "@/types/type"
+import type { Task } from "@/types/type"
 import CartaTarea from "./CartaTarea"
 
 
@@ -7,11 +7,7 @@ import CartaTarea from "./CartaTarea"
 type tarealistProp = {
     tarea: Task[]
 }
-type agrupadro = {
-    [key: string] : Task[]
-}
-
-const estadoInicial = {
+const estadoInicial: Record<string, Task[]> = {
     pendiente: [],
     enEspera:[],
     enProgreso:[],

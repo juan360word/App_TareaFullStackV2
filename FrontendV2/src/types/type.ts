@@ -8,12 +8,14 @@ export const  TareaSchema = v.object({
     name: v.string(),
     description: v.string(),
     proyectos:v.string(),
-    estado:taskStatusSchema
-    
+    estado:taskStatusSchema,
+    createdAt:v.string(),
+    updatedAt:v.string()
 })
 
 export type Task = v.InferOutput<typeof TareaSchema >
 export type TareaData = Pick<Task,'name'|'description'>
+export type TaskEstado = v.InferOutput<typeof taskStatusSchema  > // ESTE ES PARA LOS ESTADOS
 
 
 export const  proyectoSchema = v.object({

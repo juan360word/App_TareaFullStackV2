@@ -1,11 +1,16 @@
 import api from "@/lib/Axios";
 import type { Proyecto, TareaData, Task } from "@/types/type";
-import { AxiosError, isAxiosError } from "axios";
+import { isAxiosError } from "axios";
+import  {TareaSchema}  from "@/types/type";
+import * as v from 'valibot'
+
+
 
 type tareaAPI = {
     formdata:TareaData
     proyectoid: Proyecto['_id']
     tareaid?: Task['_id']
+    estado?:Task['estado']
 }
 
 export async function TareaService({formdata,proyectoid} : tareaAPI) {
@@ -24,6 +29,10 @@ export async function GetAPITareaID({proyectoid,tareaid}: Pick<tareaAPI,'proyect
   try {
     const url = `/Proyectos/${proyectoid}/tareas/${tareaid}`
     const {data} = await api(url)
+    const response = v.safeParse(TareaSchema, data)
+    if(response.success){
+    return response.output  // 👈 .output no .InferOutput
+    }
     return data
   } catch (error) {
     if(isAxiosError(error) && error.response){
@@ -56,5 +65,19 @@ export async function DeleteTarea({proyectoid,tareaid}: Pick<tareaAPI,'proyectoi
   }
   }
 }
+export async function UdpadateStats({proyectoid,tareaid,estado}: Pick<tareaAPI,'proyectoid' | 'tareaid' | 'estado'>) {
+  try {
+    const url = `/Proyectos/${proyectoid}/tareas/${tareaid}/estado`
+    const {data} = await api.post<string>(url,{estado})
+    return data
+  } catch (error) {
+    if(isAxiosError(error) && error.response){
+      throw new Error(error.response.data.error)
+  }
+  }
+}
+
+
+
 
 

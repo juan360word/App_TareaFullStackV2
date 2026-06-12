@@ -10,14 +10,14 @@ const EditarProyecto = () => {
     const { data, isError, isLoading } = useQuery({
         queryKey: ['editarproyecto', proyectoid],
         queryFn: () => GetProyectoid(proyectoid),
-        retry: false,
+        retry: 3,
         staleTime: 0  
     })
 
     if (isLoading) return <p className="text-white text-2xl text-center">Cargando..</p>
     if (isError) return <Navigate to="/" />
 
-    if (data) return <EditarForm data={data} />
+    if (data) return <EditarForm data={data} proyectoid={proyectoid} />
 
     return null
 }

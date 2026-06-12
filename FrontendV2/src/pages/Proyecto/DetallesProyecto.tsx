@@ -4,6 +4,7 @@ import { GetProyectoid } from "@/services/proyectoAPI"
 import AddTaskModal from "@/Components/Tareas/AgregaTareaModal"
 import ListaTareas from "@/Components/Tareas/ListaTareas"
 import EditarTareaData from "@/Components/Tareas/EditarTareaData"
+import TaskModalDetails from "@/Components/Tareas/TareaDetallesModal"
 
 const DetallesProyecto = () => {
     const navigate = useNavigate()
@@ -15,7 +16,7 @@ const DetallesProyecto = () => {
     const { data, isError, isLoading } = useQuery({
         queryKey: ['proyecto', proyectoid],
         queryFn: () => GetProyectoid(proyectoid),
-        retry: false,
+        retry: 3,
         staleTime: 0  
     })
 
@@ -50,6 +51,7 @@ const DetallesProyecto = () => {
                 <ListaTareas tarea={data.Tasks}/>
                 <AddTaskModal open={showModal} onClose={closeModal} />
                 <EditarTareaData/>
+                <TaskModalDetails/>
             </>
         )
     }

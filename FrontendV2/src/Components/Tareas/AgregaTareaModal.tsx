@@ -1,5 +1,5 @@
 import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { useLocation, useParams } from 'react-router-dom'
+import { useParams } from 'react-router-dom'
 import TaskForm from '../Proyecto/TareaForm'
 import {useForm} from 'react-hook-form'
 import type { TareaData } from '@/types/type'
@@ -14,10 +14,6 @@ type AddTaskModalProps = {
 
 export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
 
-    const location = useLocation()
-    const queryParamas = new URLSearchParams(location.search)
-    const modalTask = queryParamas.get('nuevaTarea')
-    
 
 
 
@@ -29,7 +25,7 @@ export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
             toast.error(error.message)
         },
         onSuccess: (data) => {
-            queryClient.invalidateQueries({queryKey: ['editarproyecto', proyectoid ]})
+            queryClient.invalidateQueries({queryKey: ['proyecto', proyectoid ]})
             toast.success(data)
             reset()
             onClose()

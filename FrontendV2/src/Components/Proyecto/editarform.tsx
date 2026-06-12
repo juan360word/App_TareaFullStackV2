@@ -1,4 +1,3 @@
-import { useEffect } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import ProjectForm from "./formProyecto"
 import type { Proyecto, proyectoData } from "@/types/type"
@@ -9,14 +8,15 @@ import { toast } from "react-toastify"
 
 
 type EditarFormProps = {
-    data: Proyecto
+    data: Proyecto,
+    proyectoid: string
 }
 
-function EditarForm({ data }: EditarFormProps) {
+function EditarForm({ data,proyectoid }: EditarFormProps) {
     const navigate = useNavigate()
     const queryClient = useQueryClient()
 
-    const { register, handleSubmit, formState: { errors }, reset } = useForm<proyectoData>({
+    const { register, handleSubmit, formState: { errors } } = useForm<proyectoData>({
         defaultValues: {
             proyectoName: data.proyectoName,
             clientename: data.clientename,
@@ -34,11 +34,9 @@ function EditarForm({ data }: EditarFormProps) {
             toast.error(error.message)
         },
         onSuccess: async (response) => {
-            console.log('Update exitoso, invalidando cache...')  // 👈
             toast.success(response)
-           await queryClient.invalidateQueries({ queryKey: ['Proyecto'] })
-           await queryClient.refetchQueries({ queryKey: ['Proyecto'] })
-           console.log('Cache invalidado, navegando...')  // 👈
+            await queryClient.invalidateQueries({ queryKey: ['Proyecto'] })
+            await queryClient.invalidateQueries({ queryKey: ['editarproyecto', proyectoid] })
             navigate('/')
         },
     })

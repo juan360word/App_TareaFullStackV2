@@ -12,11 +12,11 @@ import {toast} from 'react-toastify'
 
 const Dashboard = () => {
 
-  const { data, isError, isLoading } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ['Proyecto'],
     queryFn: GetProyecto,
     retry:false,
-    staleTime: 1000 * 60 * 5,
+    staleTime: 0,
     refetchOnMount: true,    
     refetchOnWindowFocus: true  
   })
