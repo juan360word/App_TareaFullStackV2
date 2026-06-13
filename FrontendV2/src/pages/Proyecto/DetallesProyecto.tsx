@@ -43,7 +43,7 @@ const DetallesProyecto = () => {
                     <button
                         type="button"
                         onClick={openModal}
-                        className="px-8 py-4 bg-[#1A191F] hover:bg-[#ff8906] hover:text-white transition-colors text-white text-xl font-bold cursor-pointer"
+                        className="px-8 py-4 bg-[#1A191F] hover:bg-white hover:text-black transition-colors text-white text-xl font-bold cursor-pointer"
                     >
                         Agregar Tarea
                     </button>

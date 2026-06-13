@@ -16,7 +16,7 @@ export default function ProjectForm({errors,register}:ProjectFormTypes) {
                 </label>
                 <input
                     id="proyectoName"
-                    className="w-full p-3 text-white border border-gray-200"
+                    className="w-full p-3 text-white "
                     type="text"
                     placeholder="Nombre del Proyecto"
                     {...register("proyectoName", {
@@ -35,7 +35,7 @@ export default function ProjectForm({errors,register}:ProjectFormTypes) {
                 </label>
                 <input
                     id="clientename"
-                    className="w-full p-3  border text-white border-gray-200"
+                    className="w-full p-3   text-white"
                     type="text"
                     placeholder="Nombre del Cliente"
                     {...register("clientename", {
@@ -54,7 +54,7 @@ export default function ProjectForm({errors,register}:ProjectFormTypes) {
                 </label>
                 <textarea
                     id="description"
-                    className="w-full p-3  border text-white border-gray-200"
+                    className="w-full p-3   text-white"
                     placeholder="Descripción del Proyecto"
                     {...register("description", {
                         required: "Una descripción del proyecto es obligatoria"

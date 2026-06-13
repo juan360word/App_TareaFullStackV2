@@ -54,20 +54,20 @@ export default function CartaTarea({ tarea }: cardprop) {
                 enterTo="transform opacity-100 scale-100" leave="transition ease-in duration-75"
                 leaveFrom="transform opacity-100 scale-100" leaveTo="transform opacity-0 scale-95">
                 <Menu.Items
-                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
+                  className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-[#1A191F] py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none">
                   <Menu.Item>
-                    <button type='button' onClick={() => navigate(location.pathname + `?VerTareaid=${tarea._id}`)} className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                    <button type='button' onClick={() => navigate(location.pathname + `?VerTareaid=${tarea._id}`)} className='block px-3 py-1 text-sm leading-6 text-[#ff8906] hover:text-[#3da9fc]'>
                       Ver Tarea
                     </button>
                   </Menu.Item>
                   <Menu.Item>
-                    <button type='button' onClick={() => navigate(location.pathname + `?editTareaid=${tarea._id}`)} className='block px-3 py-1 text-sm leading-6 text-gray-900'>
+                    <button type='button' onClick={() => navigate(location.pathname + `?editTareaid=${tarea._id}`)} className='block px-3 py-1 text-sm leading-6 text-[#ff8906] hover:text-[#3da9fc]'>
                       Editar Tarea
                     </button>
                   </Menu.Item>
 
                   <Menu.Item>
-                    <button type='button' onClick={() => mutate({proyectoid,tareaid: tarea._id})} className='block px-3 py-1 text-sm leading-6 text-red-500'>
+                    <button type='button' onClick={() => mutate({proyectoid,tareaid: tarea._id})} className='block px-3 py-1 text-sm leading-6 text-red-500 hover:text-[#3da9fc]'>
                       Eliminar Tarea
                     </button>
                   </Menu.Item>

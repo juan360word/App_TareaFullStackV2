@@ -100,7 +100,7 @@ export default function EditTaskModal({ open, onClose,data,tareaid }: EditTaskMo
 
                                     <input
                                         type="submit"
-                                        className="w-full p-3 bg-[#1A191F] text-[#a7a9be] hover:bg-white hover:text-black font-bold cursor-pointer transition-colors"
+                                        className="w-full p-3 mt-3 rounded-xl bg-[#131219] text-[#a7a9be] hover:bg-white hover:text-black font-bold cursor-pointer transition-colors"
                                         value="Guardar Tarea"
                                     />
                                 </form>

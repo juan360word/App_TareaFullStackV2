@@ -6,6 +6,9 @@ import router from './Routes/RoutesProye';
 import cors from 'cors'
 import {corsConfig} from './config/cors'
 import morgan from 'morgan'
+import RouterAuth from './Routes/AuthRouter';
+
+
 
 require('dotenv').config();
 connectDB();
@@ -17,8 +20,10 @@ server.use(cors(corsConfig))
 
 server.use(morgan('dev'))
 
-server.use('/api/Proyectos', router)
 
+
+server.use('/api/Proyectos', router)
+server.use('/api/auth',RouterAuth)
 server.use(express.static(path.join(__dirname, '../../../FrontendV2/dist')))
 
 server.use((req, res) => {

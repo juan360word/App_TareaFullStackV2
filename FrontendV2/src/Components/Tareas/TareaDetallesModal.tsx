@@ -88,18 +88,18 @@ export default function TaskModalDetails() {
                                 leaveFrom="opacity-100 scale-100"
                                 leaveTo="opacity-0 scale-95"
                             >
-                                <DialogPanel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-white text-left align-middle shadow-xl transition-all p-16">
-                                    <p className='text-sm text-slate-400'>Agregada el: {FormatoFecha(data.createdAt)} </p>
-                                    <p className='text-sm text-slate-400'>Última actualización: {FormatoFecha(data.updatedAt)} </p>
+                                <DialogPanel className="w-full max-w-4xl  transform overflow-hidden rounded-2xl bg-[#1A191F] text-left align-middle shadow-xl transition-all p-16">
+                                    <p className='text-xl  text-[#ff8906]  '>Agregada el: {FormatoFecha(data.createdAt)} </p>
+                                    <p className='text-xl  text-[#a7a9be]'>Última actualización: {FormatoFecha(data.updatedAt)} </p>
                                     <DialogTitle
                                         as="h3"
-                                        className="font-black text-4xl text-slate-600 my-5"
+                                        className="font-black text-4xl text-white my-5"
                                     >{data.name}
                                     </DialogTitle>
-                                    <p className='text-lg text-slate-500 mb-2'>Descripción: {data.description} { }</p>
-                                    <div className='my-5 space-y-3'>
-                                        <label className='font-bold'>Estado Actual: </label>
-                                        <select name="" onChange={handle} defaultValue={data.estado} className='w-full text-black mx-auto border p-2' id="">
+                                    <p className='text-xl text-[#a7a9be] mb-2'>Descripción: {data.description} { }</p>
+                                    <div className='my-5 space-y-3 text-xl'>
+                                        <label className='font-bold text-white '>Estado Actual: </label>
+                                        <select name="" onChange={handle} defaultValue={data.estado} className='w-full mt-3 text-white bg-[#131218] text-center rounded-xl mx-auto  p-2' id="">
                                             {Object.entries(DiccionarioTarea).map(([key, value]) => (
                                                 <option key={key} value={key}>{value}</option>
                                             ))}
