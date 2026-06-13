@@ -1,5 +1,26 @@
 import * as v from 'valibot'
 
+// USUARIO Y AUTENTICACION
+const authSchema = v.object({
+    name: v.string(),
+    email: v.pipe(v.string(),v.email()),
+    pws: v.string(),
+    pws_confirmacion: v.string()
+})
+
+export  type Auth = v.InferOutput<typeof authSchema>
+export type UsuarioLogin = Pick<Auth, 'email' | 'pws' >
+export type UsuarioRegister = Pick<Auth, 'name' | 'email' | 'pws' | 'pws_confirmacion' >
+
+
+
+
+
+
+
+
+
+
 // parte de tareas
 const taskStatusSchema = v.picklist(["pendiente", "enEspera", "enProgreso", "enRevision", "completada"])
 
