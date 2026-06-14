@@ -42,7 +42,7 @@ export class AuthCorreo {
 
                 <!-- Botón -->
                 <div style="text-align: center; margin: 25px 0;">
-                    <a href="" 
+                    <a href="${process.env.FRONTEND_URL}/confirmacion" 
                     style="background-color: #ff8906; color: #0f0e17; padding: 14px 30px; border-radius: 8px; text-decoration: none; font-weight: bold; font-size: 16px;">
                         Confirmar mi cuenta
                     </a>

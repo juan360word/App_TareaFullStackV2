@@ -20,10 +20,16 @@ RouterAuth.post('/confirmacion-cuenta',
     AuthController.Confirmacion
 )
 
+
 RouterAuth.post('/login', body('email').isEmail().withMessage('El Email No valido'),
     body('pws').notEmpty().isLength({ min: 8 }).withMessage('La contraseña es muy corta, minimo 8'),
     body('pws_confirmacion').custom((value, { req }) => { if (value !== req.body.pws) { throw new Error('Las contraseñas no son iguales') } return true }),
     entradaError, AuthController.Login)
+
+RouterAuth.post('/reenvioCode',
+    body('email').notEmpty().withMessage('Email no valido'), entradaError,
+    AuthController.envioDEconfirmacion
+)
 
 
 

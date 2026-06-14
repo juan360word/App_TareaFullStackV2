@@ -5,15 +5,17 @@ const authSchema = v.object({
     name: v.string(),
     email: v.pipe(v.string(),v.email()),
     pws: v.string(),
-    pws_confirmacion: v.string()
+    pws_confirmacion: v.string(),
+    token: v.string()
 })
 
 export  type Auth = v.InferOutput<typeof authSchema>
 export type UsuarioLogin = Pick<Auth, 'email' | 'pws' >
 export type UsuarioRegister = Pick<Auth, 'name' | 'email' | 'pws' | 'pws_confirmacion' >
+export type Reenviocodigo =Pick<Auth,  'email'  >
 
 
-
+export type confirmacionToken = Pick<Auth,'token'>
 
 
 

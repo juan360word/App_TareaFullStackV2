@@ -7,6 +7,8 @@ import  DetallesProyecto  from "./pages/Proyecto/DetallesProyecto"
 import AuthLayout from "./Layout/AuthLayout"
 import Login from "./pages/Auth/Login"
 import Registro from "./pages/Auth/Registro"
+import ConfirmarcionCuenta from "./pages/Auth/ConfirmarcionCuenta"
+import ReenvioCodigo from "./pages/Auth/ReenvioCodigo"
 
 export const Router = createBrowserRouter([
     {
@@ -42,10 +44,24 @@ export const Router = createBrowserRouter([
             }
     ]},
     {
-        path: '/registro',  // 👈 ruta independiente
+        path: '/registro',  
         element: <AuthLayout/>,
         children: [
             { index: true, element: <Registro/> }
+        ]
+    },
+    {
+        path: '/confirmacion',  
+        element: <AuthLayout/>,
+        children: [
+            { index: true, element: <ConfirmarcionCuenta/> }
+        ]
+    },
+    {
+        path: '/reenvioCode',  
+        element: <AuthLayout/>,
+        children: [
+            { index: true, element: <ReenvioCodigo/> }
         ]
     }
 ])
