@@ -9,6 +9,8 @@ import Login from "./pages/Auth/Login"
 import Registro from "./pages/Auth/Registro"
 import ConfirmarcionCuenta from "./pages/Auth/ConfirmarcionCuenta"
 import ReenvioCodigo from "./pages/Auth/ReenvioCodigo"
+import OlvidoClave from "./pages/Auth/OlvidoClave"
+import GenerarPWS from "./pages/Auth/GenerarPWS"
 
 export const Router = createBrowserRouter([
     {
@@ -62,6 +64,20 @@ export const Router = createBrowserRouter([
         element: <AuthLayout/>,
         children: [
             { index: true, element: <ReenvioCodigo/> }
+        ]
+    },
+    {
+        path: '/olvidoClave',  
+        element: <AuthLayout/>,
+        children: [
+            { index: true, element: <OlvidoClave/> }
+        ]
+    },
+    {
+        path: '/nuevaclave',  
+        element: <AuthLayout/>,
+        children: [
+            { index: true, element: <GenerarPWS/> }
         ]
     }
 ])

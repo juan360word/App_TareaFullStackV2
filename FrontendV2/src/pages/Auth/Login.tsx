@@ -2,6 +2,10 @@ import Error from "@/Components/Error"
 import type { UsuarioLogin } from "@/types/type"
 import { useForm} from 'react-hook-form'
 import { Link } from "react-router-dom"
+import { useMutation} from '@tanstack/react-query'
+import { AuthUser } from "@/services/AuthApi"
+import { toast } from "react-toastify"
+
 
 export default function LoginForm() {
     const initialValues: UsuarioLogin = {
@@ -10,7 +14,19 @@ export default function LoginForm() {
       }
       const { register, handleSubmit, formState: { errors } } = useForm({ defaultValues: initialValues })
     
-      const handleLogin = (_formData: UsuarioLogin) => { }
+      const { mutate} = useMutation({
+        mutationFn:AuthUser,
+        onError:(error) => {
+            toast.error(error.message)
+        },
+        onSuccess:(data) => {
+            toast.success(data)
+        }
+      })
+
+      const handleLogin = (_formData: UsuarioLogin) => mutate(_formData)
+
+      
       
     return (
         <form action="" onSubmit={handleSubmit(handleLogin)}>
@@ -67,7 +83,12 @@ export default function LoginForm() {
                 </div>
 
                 <button className="mb-12 py-2 rounded-[25px] bg-[#252525] text-white transition-all duration-400 hover:bg-red-600 text-sm cursor-pointer">
-                    ¿Olvidaste tu contraseña?
+                        <nav>
+                            <Link to='/olvidoClave'>
+                                ¿Olvidaste tu contraseña?
+                            </Link>
+                        </nav>
+                 
                 </button>
             </div>
         </div>

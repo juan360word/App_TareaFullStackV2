@@ -1,6 +1,6 @@
 import api from "@/lib/Axios";
 import { isAxiosError } from "axios";
-import type { UsuarioRegister } from "@/types/type";
+import type { olvidoclave, UsuarioLogin, UsuarioRegister } from "@/types/type";
 import type { confirmacionToken} from '../types/type.ts'
 import type { Reenviocodigo } from "@/types/type";
 
@@ -34,6 +34,30 @@ export async function reenvioCodigo( token :Reenviocodigo ) {
     try {
         const url = `/auth/reenvioCode`
         const {data} = await api.post<string>(url,token)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.message ){
+            throw new Error(error.response.data.error);
+            
+        }
+    }
+}
+export async function AuthUser( formData :UsuarioLogin ) {
+    try {
+        const url = `/auth/login`
+        const {data} = await api.post<string>(url,formData)
+        return data
+    } catch (error) {
+        if(isAxiosError(error) && error.message ){
+            throw new Error(error.response.data.error);
+            
+        }
+    }
+}
+export async function olvidoClave( formData :olvidoclave ) {
+    try {
+        const url = `/auth/olvidoClave`
+        const {data} = await api.post<string>(url,formData)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.message ){

@@ -13,6 +13,8 @@ export  type Auth = v.InferOutput<typeof authSchema>
 export type UsuarioLogin = Pick<Auth, 'email' | 'pws' >
 export type UsuarioRegister = Pick<Auth, 'name' | 'email' | 'pws' | 'pws_confirmacion' >
 export type Reenviocodigo =Pick<Auth,  'email'  >
+export type olvidoclave =Pick<Auth,  'email'  >
+export type NewPasswordForm =Pick<Auth,  'pws' | 'pws_confirmacion'  >
 
 
 export type confirmacionToken = Pick<Auth,'token'>

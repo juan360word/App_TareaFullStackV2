@@ -51,7 +51,11 @@ const ReenvioCodigo = () => {
               type="email"
               placeholder="tu@email.com"
               className="bg-transparent border-none outline-none text-[#d3d3d3] text-base w-full"
+              {...register('email', { required: 'El email es obligatorio' })}
             />
+            {errors.email && (
+              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            )}
           </div>
 
           

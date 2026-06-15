@@ -126,6 +126,11 @@ export default function Registro() {
                 ¿Ya tienes cuenta?
                 </Link>
             </nav>
+            <nav className="text-center flex items-center hover:bg-slate-900 text-white justify-center gap-2 rounded-[25px] p-2.5 m-2 " style={{ boxShadow: 'inset 2px 5px 10px rgb(5,5,5)' }}  m-2>
+                <Link to='/olvidoClave' className="   font-normal">
+                ¿Clave?
+                </Link>
+            </nav>
         </div>
       </div>
       </form>

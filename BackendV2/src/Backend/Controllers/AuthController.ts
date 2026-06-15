@@ -127,13 +127,6 @@ export class AuthController {
     static envioDEconfirmacion = async (req:Request,res:Response) => {
         const {email} = req.body
         try {
-            // Se crea el usuario
-            const users = new User(req.body)
-            
-            
-           
-
-            // confirmacion de registro de usuario y correo
             const user = await User.findOne({email})
             if(!user){
                 const error = new Error('No esta Registrado el usuario')
@@ -145,24 +138,78 @@ export class AuthController {
                 return res.status(403).json({error: error.message})
             }
 
-            // Validacion de de contraseña (otra)
-           
-            
-            // GENERAR TOKEN
             const token = new Token()
             token.token = GenaradorTokens()
-            token.user = users._id
+            token.user = user._id
 
-            // Correo
             AuthCorreo.EnvioConfiguracionEmail({
-               email:users.email ,
-               name:users.email,
+               email: user.email,
+               name: user.email,
                token: token.token
             })
 
-            await users.save()
-            await Promise.allSettled([users.save(),token.save()])
+            await token.save()
             res.send('Perfecto 😉, Se envio un nuevo Token ')
+        } catch (error) {
+           res.status(500).json({error:"Tienes un error"})
+        }
+    }
+    static olvidoContrasena = async (req:Request,res:Response) => {
+        const {email} = req.body
+        try {
+            const user = await User.findOne({email})
+            if(!user){
+                const error = new Error('No esta Registrado el usuario')
+                return res.status(404).json({error: error.message})
+            }
+
+            
+            const token = new Token()
+            token.token = GenaradorTokens()
+            token.user = user._id
+            await token.save()
+            AuthCorreo.reiniciarcontrasena({
+               email: user.email,
+               name: user.email,
+               token: token.token
+            })
+
+           
+            res.send('Perfecto 😉, Revisa tu Correo ')
+        } catch (error) {
+           res.status(500).json({error:"Tienes un error"})
+        }
+    }
+    static ValidarToken = async (req:Request,res:Response) => {
+        const {token} = req.body
+        try {
+            const tokenExistente = await Token.findOne({token})
+            if(!tokenExistente){
+                const error = new Error('Token no valido')
+                return res.status(404).json({error: error.message})
+            }
+            res.send('Token valido')
+        } catch (error) {
+           res.status(500).json({error:"Tienes un error"})
+        }
+    }
+    static UpdatePWS = async (req:Request,res:Response) => {
+        const {token} = req.params
+        const {pws,pws_confirmacion} = req.body
+        try {
+            const tokenExistente = await Token.findOne({token})
+            if(!tokenExistente){
+                const error = new Error('Token no valido')
+                return res.status(404).json({error: error.message})
+            }
+            const user = await User.findById(tokenExistente.user)
+            if(!user){
+                const error = new Error('Usuario no encontrado')
+                return res.status(404).json({error: error.message})
+            }
+            user.pws = await bcrypt.hash(pws, 10)
+            await Promise.allSettled([user.save(),tokenExistente.deleteOne()])
+            res.send('SE ACTUALIZO LA CONTRASEÑA CORRECTAMENTE')
         } catch (error) {
            res.status(500).json({error:"Tienes un error"})
         }

@@ -1,6 +1,6 @@
 
 import { Router } from "express";
-import { body } from "express-validator";
+import { body, param } from "express-validator";
 import { AuthController } from "../Controllers/AuthController";
 import { entradaError } from "../Middleware/validacion";
 
@@ -29,6 +29,21 @@ RouterAuth.post('/login', body('email').isEmail().withMessage('El Email No valid
 RouterAuth.post('/reenvioCode',
     body('email').notEmpty().withMessage('Email no valido'), entradaError,
     AuthController.envioDEconfirmacion
+)
+RouterAuth.post('/olvidoClave',
+    body('email').notEmpty().withMessage('Email no valido'), entradaError,
+    AuthController.olvidoContrasena
+)
+
+RouterAuth.post('/confirmacionToken',
+    body('token').notEmpty().withMessage('El token no puede ir vacio'), entradaError,
+    AuthController.ValidarToken
+)
+RouterAuth.post('/actualizarPWS/:token',
+    param('token').isNumeric().withMessage('El token no puede ir vacio'), entradaError,
+    body('pws').notEmpty().isLength({ min: 8 }).withMessage('La contraseña es muy corta, minimo 8'),
+    body('pws_confirmacion').custom((value, { req }) => { if (value !== req.body.pws) { throw new Error('Las contraseñas no son iguales') } return true }),
+    AuthController.UpdatePWS
 )
 
 
