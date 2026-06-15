@@ -18,7 +18,7 @@ const TokensData : Schema = new Schema ({
         type: Types.ObjectId,
         ref:'user'
     },
-    creado: {
+    expiresAt: {
         type:Date,
         required: true,
         default: Date.now(),

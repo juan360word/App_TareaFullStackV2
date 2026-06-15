@@ -1,11 +1,34 @@
-
 import { PinInput, PinInputField } from '@chakra-ui/pin-input';
 import { Link } from 'react-router-dom';
+import { useMutation } from '@tanstack/react-query';
+import { confirmacionToken } from '@/services/AuthApi';
+import { toast } from 'react-toastify';
 
-export default function NewPasswordToken() {
-    const handleChange = (token: string) => {}
-    const handleComplete = (token: string) => {}
 
+type NewPasswordTokenProps = {
+    onTokenComplete: (token: string) => void,
+    token: string,
+    setToken: (token: string) => void
+}
+
+export default function NewPasswordToken({ onTokenComplete, token, setToken }: NewPasswordTokenProps) {
+    const {mutate} = useMutation({
+        mutationFn: confirmacionToken,
+        onError: (error) => {
+            toast.error(error.message)
+        },
+        onSuccess: (data, variables) => {
+            toast.success(data)
+            onTokenComplete(variables.token)
+        }
+    })
+
+    const handleChange = (_token: string) => {
+        setToken(_token)
+    }
+    const handleComplete = (tokenCompleto: string) => {
+        mutate({ token: tokenCompleto })
+    }
     return (
         <>
             <form
@@ -15,7 +38,7 @@ export default function NewPasswordToken() {
                     className="font-normal text-2xl text-center block"
                 >Código de 6 dígitos</label>
                 <div className="flex justify-center gap-5">
-                    <PinInput value={"123456"} onChange={handleChange} onComplete={handleComplete}>
+                    <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
                         <PinInputField className="h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
                         <PinInputField className="h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
                         <PinInputField className="h-10 w-10 p-3 rounded-lg border-gray-300 border placeholder-white" />
@@ -27,7 +50,7 @@ export default function NewPasswordToken() {
             </form>
             <nav className="mt-10 flex flex-col space-y-4">
                 <Link
-                    to='/auth/forgot-password'
+                    to='/reenvioCode'
                     className="text-center text-gray-300 font-normal"
                 >
                     Solicitar un nuevo Código

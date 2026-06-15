@@ -5,7 +5,13 @@ import { Link } from "react-router-dom"
 
 
 const GenerarPWS = () => {
+    const [token, setToken] = useState<string>('')
     const [codigo, setCodigo] = useState(false)
+
+    const handleTokenComplete = (tokenCompleto: string) => {
+        setToken(tokenCompleto)
+        setCodigo(true)
+    }
   return (
    <>
    <h1 className="text-5xl font-black text-white">Generar Contraseña</h1>
@@ -13,9 +19,9 @@ const GenerarPWS = () => {
    
    
    {!codigo ? (
-    <NewPasswordToken />
+    <NewPasswordToken token={token} setToken={setToken} onTokenComplete={handleTokenComplete} />
    ) : (
-    <FormspwsToken />
+    <FormspwsToken token={token} />
    )}
    
    <nav className="my-5 flex justify-center">
