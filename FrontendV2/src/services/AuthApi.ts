@@ -33,7 +33,7 @@ export async function ConfirmacionCta({ token }: confirmacionToken) {
 export async function reenvioCodigo( token :Reenviocodigo ) {
     try {
         const url = `/auth/reenvioCode`
-        const {data} = await api.post<string>(url,{token})
+        const {data} = await api.post<string>(url,token)
         return data
     } catch (error) {
         if(isAxiosError(error) && error.message ){
