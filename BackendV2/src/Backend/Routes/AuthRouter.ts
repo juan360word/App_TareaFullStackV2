@@ -3,6 +3,7 @@ import { Router } from "express";
 import { body, param } from "express-validator";
 import { AuthController } from "../Controllers/AuthController";
 import { entradaError } from "../Middleware/validacion";
+import { MiddlewareAuth } from "../Middleware/Auth";
 
 
 
@@ -46,6 +47,7 @@ RouterAuth.post('/actualizarPWS/:token',
 )
 
 RouterAuth.get('/user',
+    MiddlewareAuth,
     AuthController.user
 )
 

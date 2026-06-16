@@ -6,6 +6,7 @@ import { TareaController } from "../Controllers/TareaController";
 import { ValidacionProyectosExistan } from "../Middleware/Proyecto";
 import { ValidacionTareasExistan, QuienEliminaTareas } from "../Middleware/Tarea";
 import { MiddlewareAuth } from "../Middleware/Auth";
+import { checkRole } from "../Middleware/CheckRole";
 
 
 
@@ -31,7 +32,7 @@ body('clientename').notEmpty().withMessage('Nombre,OBLIGATORIO'),
 body('description').notEmpty().withMessage('¿Que quieres decir?,OBLIGATORIO'),
 entradaError,ProyectoController.UpdateProyecto)
 
-router.delete('/:id',param('id').isMongoId().withMessage('ID no valido'),entradaError,ProyectoController.DeleteProyecto)
+router.delete('/:id',param('id').isMongoId().withMessage('ID no valido'),entradaError,checkRole('admin'),ProyectoController.DeleteProyecto)
 
 // Router de tareas
 
@@ -54,7 +55,7 @@ entradaError,ValidacionProyectosExistan,ValidacionTareasExistan,QuienEliminaTare
 // delete
 
 router.delete('/:proyectoid/tareas/:id',param('id').isMongoId().withMessage('ID no valido'),entradaError,
-ValidacionProyectosExistan,ValidacionTareasExistan,QuienEliminaTareas,TareaController.DeleteTarea)
+ValidacionProyectosExistan,ValidacionTareasExistan,QuienEliminaTareas,checkRole('admin'),TareaController.DeleteTarea)
 
 router.post('/:proyectoid/tareas/:id/estado',param('id').isMongoId().withMessage('ID no valido'),
 body('estado').notEmpty().withMessage('Que cambio hiciste?'),entradaError,
@@ -66,11 +67,11 @@ ValidacionProyectosExistan,ValidacionTareasExistan,QuienEliminaTareas,TareaContr
 router.post('/:id/members',
 param('id').isMongoId().withMessage('ID no valido'),
 body('userId').isMongoId().withMessage('ID de usuario no valido'),
-entradaError,ProyectoController.AddMember)
+entradaError,checkRole('admin'),ProyectoController.AddMember)
 
 router.delete('/:id/members/:userId',
 param('id').isMongoId().withMessage('ID no valido'),
 param('userId').isMongoId().withMessage('ID de usuario no valido'),
-entradaError,ProyectoController.RemoveMember)
+entradaError,checkRole('admin'),ProyectoController.RemoveMember)
 
 export default router

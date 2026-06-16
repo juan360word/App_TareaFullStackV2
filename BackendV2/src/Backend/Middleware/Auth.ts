@@ -22,8 +22,7 @@ export const MiddlewareAuth = async (req:Request, res:Response,next:NextFunction
 
         const variable_sin_nombre = jwt.verify(token,process.env.LLAVE_PRIVADAJWT)
         if(typeof variable_sin_nombre === 'object' && variable_sin_nombre.id){
-            const user = await User.findById(variable_sin_nombre.id).select('_id name email')
-            next()
+            const user = await User.findById(variable_sin_nombre.id).select('_id name email role')
             if(user){
                 req.user = user
                 return next()

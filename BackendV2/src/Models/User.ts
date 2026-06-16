@@ -7,7 +7,8 @@ export interface TypeUser extends Document {
     email:string,
     pws:string,
     name:string,
-    confirmed:boolean
+    confirmed:boolean,
+    role:'admin' | 'user'
 }
 
 
@@ -32,6 +33,11 @@ const UserSchema : Schema = new Schema ({
         type:Boolean,
         required:true,
         default:false
+    },
+    role:{
+        type:String,
+        enum:['admin','user'],
+        default:'user'
     }
 
 })
