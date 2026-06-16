@@ -1,12 +1,12 @@
 import { useState } from "react"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useMutation } from '@tanstack/react-query'
 import { toast } from "react-toastify"
 import { ConfirmacionCta } from '../../services/AuthApi'
 
 
 const ConfirmarcionCuenta = () => {
-
+    const navigate = useNavigate()
     const [token, settoken] = useState<string>('')
 
     const { mutate } = useMutation({
@@ -15,7 +15,8 @@ const ConfirmarcionCuenta = () => {
             toast.error(error.message)
         },
         onSuccess: (data) => {
-            toast.success(data)
+            toast.success('Cuenta confirmada correctamente')
+            navigate('/login')
         }
     })
 

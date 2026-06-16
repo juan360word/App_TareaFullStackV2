@@ -1,12 +1,13 @@
 import { useForm } from "react-hook-form";
 import type { UsuarioRegister } from "@/types/type";
 import Error from "@/Components/Error";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useMutation } from "@tanstack/react-query";
 import { CreacionCuenta } from "@/services/AuthApi"; 
 import { toast } from "react-toastify";
 
 export default function Registro() {
+    const navigate = useNavigate()
   
     const initialValues: UsuarioRegister = {
       name: '',
@@ -19,10 +20,6 @@ export default function Registro() {
   
     const password = watch('pws');
   
-    const handleRegister = (formData: UsuarioRegister) => {
-      mutate(formData)
-    }
-  
     const {mutate} = useMutation({
       mutationFn: CreacionCuenta,
       onError: (error) => {
@@ -31,9 +28,13 @@ export default function Registro() {
       onSuccess: (data) => {
         toast.success(data)
         reset()
+        navigate('/confirmacion')
       }
     })
 
+    const handleRegister = (formData: UsuarioRegister) => {
+      mutate(formData)
+    }
 
     return (
         <form action="" onSubmit={handleSubmit(handleRegister)} noValidate>
@@ -126,11 +127,7 @@ export default function Registro() {
                 ¿Ya tienes cuenta?
                 </Link>
             </nav>
-            <nav className="text-center flex items-center hover:bg-slate-900 text-white justify-center gap-2 rounded-[25px] p-2.5 m-2 " style={{ boxShadow: 'inset 2px 5px 10px rgb(5,5,5)' }}  m-2>
-                <Link to='/olvidoClave' className="   font-normal">
-                ¿Clave?
-                </Link>
-            </nav>
+            
         </div>
       </div>
       </form>

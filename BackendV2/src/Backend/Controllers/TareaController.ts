@@ -9,7 +9,7 @@ export class TareaController {
             const tarea = new Task(req.body)
             tarea.proyectos = req.proyecto._id
             req.proyecto.Tasks.push(tarea._id)
-            await Promise.allSettled([tarea.save(),req.proyecto.save()]) // se realiza esto para no poner dos await 
+            await Promise.all([tarea.save(),req.proyecto.save()])
             res.send('Se envio la Tarea correctamente')
         } catch (error) {
             console.log(error)
@@ -53,7 +53,7 @@ export class TareaController {
         try {
             const {id} = req.params
             req.proyecto.Tasks = req.proyecto.Tasks.filter(item => item.toString() !== id.toString())
-            await Promise.allSettled([req.task.deleteOne(), req.proyecto.save()])
+            await Promise.all([req.task.deleteOne(), req.proyecto.save()])
             res.send('Tarea Eliminada')
         } catch (error) {
             console.log(error)

@@ -29,7 +29,7 @@ const UserSchema : Schema = new Schema ({
         required:true
     },
     confirmed:{
-        type:String,
+        type:Boolean,
         required:true,
         default:false
     }

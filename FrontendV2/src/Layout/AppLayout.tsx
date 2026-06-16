@@ -3,9 +3,17 @@ import Logo from '../Components/Logo'
 import NavMenu from '../Components/NavMenu'
 import {ToastContainer,Zoom } from 'react-toastify'
 import 'react-toastify/dist/ReactToastify.css'
-
+import { useAuth } from '@/hooks/useAuth'
+import { Navigate } from 'react-router-dom'
 
 const AppLayout = () => {
+
+  const {data,isError,isLoading} = useAuth()
+
+  if(isLoading) return 'cargando..'
+  if(isError) {
+    return <Navigate to='/login'/>
+  }
   return (
     
     <>

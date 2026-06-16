@@ -1,17 +1,13 @@
 import dotenv from 'dotenv';
+dotenv.config();
+
 import express from 'express';
 import path from 'node:path';
-import { connectDB } from './config/DBmongo';
 import router from './Routes/RoutesProye';
 import cors from 'cors'
 import {corsConfig} from './config/cors'
 import morgan from 'morgan'
 import RouterAuth from './Routes/AuthRouter';
-
-
-
-require('dotenv').config();
-connectDB();
 
 const server = express();
 server.use(express.json());

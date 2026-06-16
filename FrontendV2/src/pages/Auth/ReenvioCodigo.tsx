@@ -13,8 +13,6 @@ const ReenvioCodigo = () => {
 
     const { register, handleSubmit, reset, formState: { errors } } = useForm({ defaultValues: initialValues });
 
-    const handleRequestCode = (formData: Reenviocodigo ) => {mutate(formData)}
-
     const {mutate} = useMutation({
       mutationFn:reenvioCodigo,
       onError: (error) => {
@@ -22,8 +20,11 @@ const ReenvioCodigo = () => {
       },
       onSuccess: (data) => {
         toast.success(data)
+        reset()
       }
    })
+
+    const handleRequestCode = (formData: Reenviocodigo ) => {mutate(formData)}
 
   return (
    <form action="" onSubmit={handleSubmit(handleRequestCode)}>

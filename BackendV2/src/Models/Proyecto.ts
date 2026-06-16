@@ -1,5 +1,6 @@
 import mongoose,{Schema,Document,PopulatedDoc,ObjectId,Types} from "mongoose";
 import  Task,{TaskType} from "./Task";
+import { TypeUser } from "./User";
 
 
 export type ProyectoType = Document & {
@@ -7,6 +8,8 @@ export type ProyectoType = Document & {
     clientename:string,
     description:string,
     Tasks: PopulatedDoc<TaskType & Document>[]
+    Admin: PopulatedDoc<TypeUser & Document>
+    Members: PopulatedDoc<TypeUser & Document>[]
 }
 // esto de aca abajo es de mongoDB lo de arriba es de typeScript
 const ProyectoSchema : Schema = new Schema ({
@@ -29,6 +32,14 @@ const ProyectoSchema : Schema = new Schema ({
         type: Types.ObjectId,
         ref:'Tarea'
        
+    }
+    ],Admin:{
+        type: Types.ObjectId,
+        ref:'user'
+    },
+    Members:[{
+        type: Types.ObjectId,
+        ref:'user'
     }]
 },{timestamps:true})
 

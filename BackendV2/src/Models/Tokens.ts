@@ -21,8 +21,8 @@ const TokensData : Schema = new Schema ({
     expiresAt: {
         type:Date,
         required: true,
-        default: Date.now(),
-        expires:'6m'
+        default: Date.now,
+        expires:'10m'
     }
 })
 

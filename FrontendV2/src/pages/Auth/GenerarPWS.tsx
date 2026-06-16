@@ -14,9 +14,9 @@ const GenerarPWS = () => {
     }
   return (
    <>
-   <h1 className="text-5xl font-black text-white">Generar Contraseña</h1>
-   <p className="text-2xl font-light text-[#a7a9be] mt-5">Ingresa el codigo de verificacion</p>
-   
+   <div className="flex flex-col items-center">
+     <p className="text-center my-4 tracking-widest text-white text-3xl font-medium">Restablecer Contraseña</p>
+   </div>
    
    {!codigo ? (
     <NewPasswordToken token={token} setToken={setToken} onTokenComplete={handleTokenComplete} />
@@ -24,10 +24,13 @@ const GenerarPWS = () => {
     <FormspwsToken token={token} />
    )}
    
-   <nav className="my-5 flex justify-center">
-    <Link className="bg-[#1A191F]  text-[#a7a9be] hover:bg-white hover:text-black  px-10 py-3 font-bold cursor-pointer transition-colors"
-    to='/'>
-    Volver a Inicio
+   <nav className="flex justify-center mt-6 mb-4">
+    <Link
+      className="w-full max-w-[550px] text-center  text-white font-normal rounded-[25px] p-2.5 transition-colors"
+      style={{ boxShadow: 'inset 2px 5px 10px rgb(5,5,5)' }}
+      to='/'
+    >
+      Volver a Inicio
     </Link>
    </nav>
    </>

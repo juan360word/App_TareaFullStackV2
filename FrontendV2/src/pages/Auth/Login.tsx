@@ -1,13 +1,17 @@
 import Error from "@/Components/Error"
 import type { UsuarioLogin } from "@/types/type"
 import { useForm} from 'react-hook-form'
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useMutation} from '@tanstack/react-query'
 import { AuthUser } from "@/services/AuthApi"
 import { toast } from "react-toastify"
 
 
+
+
+
 export default function LoginForm() {
+    const navigate = useNavigate()
     const initialValues: UsuarioLogin = {
         email: '',
         pws: '',
@@ -19,8 +23,9 @@ export default function LoginForm() {
         onError:(error) => {
             toast.error(error.message)
         },
-        onSuccess:(data) => {
-            toast.success(data)
+        onSuccess:() => {
+            toast.success('Inicio de sesión exitoso')
+            navigate('/')
         }
       })
 
@@ -71,7 +76,10 @@ export default function LoginForm() {
             <Error>{errors.pws.message}</Error>
           )}
                 <div className="flex justify-center gap-2 mt-10">
-                    <button className="px-4 py-2 rounded-[25px] bg-[#171717] text-white hover:bg-white hover:text-black transition-colors duration-400 cursor-pointer">Ingresar</button>
+                    <button className="px-4 py-2 rounded-[25px] bg-[#171717] text-white hover:bg-white hover:text-black transition-colors duration-400 cursor-pointer">
+                        Ingresar
+                  
+                    </button>
                     <button className="px-9 py-2 rounded-[25px] bg-[#171717] text-white hover:bg-white hover:text-black transition-all duration-400  text-sm cursor-pointer">
                         <nav>
                             <Link to='/registro'>

@@ -5,10 +5,12 @@ import { entradaError } from "../Middleware/validacion";
 import { TareaController } from "../Controllers/TareaController";
 import { ValidacionProyectosExistan } from "../Middleware/Proyecto";
 import { ValidacionTareasExistan, QuienEliminaTareas } from "../Middleware/Tarea";
+import { MiddlewareAuth } from "../Middleware/Auth";
 
 
 
 const router = Router()
+router.use(MiddlewareAuth)
 router.post('/',
 body('proyectoName').notEmpty().withMessage('No dejar vacio,OBLIGATORIO'),
 body('clientename').notEmpty().withMessage('Nombre,OBLIGATORIO'),
@@ -35,7 +37,7 @@ router.delete('/:id',param('id').isMongoId().withMessage('ID no valido'),entrada
 
 router.post('/:proyectoid/tareas',body('name').notEmpty().withMessage('No de dejar vacio (Nombre)'),
 body('description').notEmpty().withMessage('No de dejar vacio (Descripcion)')
-,ValidacionProyectosExistan,TareaController.CreateTask)
+,entradaError,ValidacionProyectosExistan,TareaController.CreateTask)
 
 // Validacion de tarea
 
@@ -58,5 +60,17 @@ router.post('/:proyectoid/tareas/:id/estado',param('id').isMongoId().withMessage
 body('estado').notEmpty().withMessage('Que cambio hiciste?'),entradaError,
 ValidacionProyectosExistan,ValidacionTareasExistan,QuienEliminaTareas,TareaController.UpdateEstados)
 
+
+// Router de miembros
+
+router.post('/:id/members',
+param('id').isMongoId().withMessage('ID no valido'),
+body('userId').isMongoId().withMessage('ID de usuario no valido'),
+entradaError,ProyectoController.AddMember)
+
+router.delete('/:id/members/:userId',
+param('id').isMongoId().withMessage('ID no valido'),
+param('userId').isMongoId().withMessage('ID de usuario no valido'),
+entradaError,ProyectoController.RemoveMember)
 
 export default router

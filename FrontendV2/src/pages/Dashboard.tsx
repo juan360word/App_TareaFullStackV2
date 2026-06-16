@@ -13,7 +13,7 @@ import { TextAnimateTitulo } from '@/Components/Animaciones/Texto'
 
 const Dashboard = () => {
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, error } = useQuery({
     queryKey: ['Proyecto'],
     queryFn: GetProyecto,
     retry:false,
@@ -40,7 +40,7 @@ const Dashboard = () => {
    <p className='text-white text-2xl text-center'>Cargando..</p> 
   ) 
   
- // if (isError) return (<p className='text-white text-2xl text-center'>'Hubo un error' </p> ) 
+ if (error) return (<p className='text-white text-2xl text-center'>Error: {(error as Error).message} </p> ) 
 
  
 

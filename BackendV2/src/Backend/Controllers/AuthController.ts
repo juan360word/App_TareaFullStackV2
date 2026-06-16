@@ -4,7 +4,7 @@ import bcrypt from "bcrypt"
 import Token from "../../Models/Tokens"
 import { GenaradorTokens } from "../../utils/Tokens"
 import { AuthCorreo } from "../../Correos/AuthCorreo"
-
+import { JWT } from "../../utils/JWT"
 
 export class AuthController {
     
@@ -23,28 +23,23 @@ export class AuthController {
                 const error = new Error('Ya esta Registrado este correo ')
                 return res.status(409).json({error:'ERROR ESTE CORREO YA SE USO '})
             }
-            // Validacion de de contraseña (otra)
-            const esValido = await bcrypt.compare(pws,users.pws)
-            if(!esValido) {
-                return res.status(404).json({error:'Contraseña incorrecta '})
-            }
-            
+
             // GENERAR TOKEN
             const token = new Token()
             token.token = GenaradorTokens()
             token.user = users._id
 
             // Correo
-            AuthCorreo.EnvioConfiguracionEmail({
+            await AuthCorreo.EnvioConfiguracionEmail({
                email:users.email ,
                name:users.email,
                token: token.token
             })
 
-            await users.save()
-            await Promise.allSettled([users.save(),token.save()])
+            await Promise.all([users.save(),token.save()])
             res.send('Perfecto 😉, Ve y revisa tu correo para validar ')
         } catch (error) {
+           console.log(error)
            res.status(500).json({error:"Tienes un error"})
         }
     }
@@ -62,7 +57,7 @@ export class AuthController {
            const user = await User.findById(tokenExistente.user)
            user.confirmed = true
 
-           await Promise.allSettled([
+           await Promise.all([
             user.save(),
             tokenExistente.deleteOne()
            ])
@@ -90,13 +85,13 @@ export class AuthController {
                 const token = new Token()
                 token.user = user._id
                 token.token = GenaradorTokens()
-                await token.save()
 
-            AuthCorreo.EnvioConfiguracionEmail({
+            await AuthCorreo.EnvioConfiguracionEmail({
                 email:user.email ,
                 name:user.email,
                 token: token.token
             })
+                await token.save()
 
 
                 const error = new Error('Usuario no Esta Confirmado,Vuelve a revisar')
@@ -114,7 +109,8 @@ export class AuthController {
             return res.status(404).json({error:error.message})
             }
 
-            res.send('Upa acabaste de ingresar la contraseña correcta 😮‍💨')
+            const token = JWT({id: user._id.toString()})
+            res.json({token})
 
 
         } catch (error) {
@@ -142,7 +138,7 @@ export class AuthController {
             token.token = GenaradorTokens()
             token.user = user._id
 
-            AuthCorreo.EnvioConfiguracionEmail({
+            await AuthCorreo.EnvioConfiguracionEmail({
                email: user.email,
                name: user.email,
                token: token.token
@@ -151,6 +147,7 @@ export class AuthController {
             await token.save()
             res.send('Perfecto 😉, Se envio un nuevo Token ')
         } catch (error) {
+           console.log(error)
            res.status(500).json({error:"Tienes un error"})
         }
     }
@@ -167,16 +164,16 @@ export class AuthController {
             const token = new Token()
             token.token = GenaradorTokens()
             token.user = user._id
-            await token.save()
-            AuthCorreo.reiniciarcontrasena({
+            await AuthCorreo.reiniciarcontrasena({
                email: user.email,
                name: user.email,
                token: token.token
             })
+            await token.save()
 
-           
             res.send('Perfecto 😉, Revisa tu Correo ')
         } catch (error) {
+           console.log(error)
            res.status(500).json({error:"Tienes un error"})
         }
     }
@@ -190,6 +187,7 @@ export class AuthController {
             }
             res.send('Token valido')
         } catch (error) {
+           console.log(error)
            res.status(500).json({error:"Tienes un error"})
         }
     }
@@ -204,15 +202,20 @@ export class AuthController {
             }
             const user = await User.findById(tokenExistente.user)
             if(!user){
+                await tokenExistente.deleteOne()
                 const error = new Error('Usuario no encontrado')
                 return res.status(404).json({error: error.message})
             }
             user.pws = await bcrypt.hash(pws, 10)
-            await Promise.allSettled([user.save(),tokenExistente.deleteOne()])
+            await Promise.all([user.save(),tokenExistente.deleteOne()])
             res.send('SE ACTUALIZO LA CONTRASEÑA CORRECTAMENTE')
         } catch (error) {
+           console.log(error)
            res.status(500).json({error:"Tienes un error"})
         }
+    }
+    static user = async (req:Request,res:Response) => {
+       return res.json(req.user)
     }
 
 
