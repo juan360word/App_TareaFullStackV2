@@ -63,15 +63,15 @@ export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
                 <div className="flex min-h-full items-center justify-center p-4">
                     <DialogPanel
                         transition
-                        className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-[#1A191F] text-left align-middle shadow-xl transition-all p-16 data-[closed]:scale-95 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200"
+                        className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-panel-bg text-left align-middle shadow-xl transition-all p-16 data-[closed]:scale-95 data-[closed]:opacity-0 data-[enter]:duration-300 data-[leave]:duration-200"
                     >
                         <DialogTitle className="font-black text-white tracking-wider text-4xl my-6">
                             Nueva Tarea
                         </DialogTitle>
 
-                        <p className="text-xl text-[#a7a9be] font-bold">
+                        <p className="text-xl text-text-muted font-bold">
                             Llena el formulario y crea{' '}
-                            <span className="text-[#ff8906]">una tarea</span>
+                            <span className="text-primary">una tarea</span>
                         </p>
 
                         <form action="" onSubmit={handleSubmit(hanlde)} noValidate className='mt-10 space-y-3'>
@@ -84,7 +84,7 @@ export default function AddTaskModal({ open, onClose }: AddTaskModalProps) {
                         <input
                          type="submit"
                          value="Guardar Cambios"
-                         className="w-full p-3 bg-[#1A191F] text-[#a7a9be] hover:bg-white hover:text-black font-bold cursor-pointer transition-colors"
+                         className="w-full p-3 bg-panel-bg text-text-muted hover:bg-primary hover:text-input-text font-bold cursor-pointer transition-colors"
                         />
 
                             

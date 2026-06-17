@@ -3,6 +3,11 @@ import { isAxiosError } from "axios";
 import type { olvidoclave, UsuarioLogin, UsuarioRegister, NewPasswordForm } from "@/types/type";
 import type { confirmacionToken} from '../types/type.ts'
 import type { Reenviocodigo } from "@/types/type";
+import { safeParse } from "valibot";
+import { userSchema } from "@/types/type";
+
+
+
 
 function extraerError(error: unknown): string {
   if (isAxiosError(error) && error.response) {
@@ -85,7 +90,10 @@ export async function actualizarPWS( token :string, formData :NewPasswordForm ) 
 export async function Getuser() {
     try {
         const {data} = await api('/auth/user')
-        return data
+        const response = safeParse(userSchema,data)
+        if(response.success){
+            return response.output
+        }
     } catch (error) {
         throw new Error(extraerError(error));
     }

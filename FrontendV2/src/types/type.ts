@@ -18,9 +18,12 @@ export type NewPasswordForm =Pick<Auth,  'pws' | 'pws_confirmacion'  >
 
 
 export type confirmacionToken = Pick<Auth,'token'>
-
-
-
+// Usuario
+export const userSchema = v.object({
+    ...v.pick(authSchema, ['name','email']).entries,
+    _id: v.string()
+})
+export type User = v.InferOutput<typeof userSchema>
 
 // parte de tareas
 const taskStatusSchema = v.picklist(["pendiente", "enEspera", "enProgreso", "enRevision", "completada"])
@@ -45,17 +48,28 @@ export const  proyectoSchema = v.object({
     proyectoName: v.string(),
     clientename:v.string(),
     description:v.string(),
-    Tasks: v.array(TareaSchema)
+    Tasks: v.array(TareaSchema),
+    Admin: v.pick(userSchema, ['_id'])
 })
 
 export const DasboProyectoSchema = v.array(v.object({
     _id: v.string(),
     proyectoName: v.string(),
     clientename: v.string(),
-    description: v.string()
-}, undefined, { allowUnexpectedKeys: true }))
+    description: v.string(),
+    Admin: v.string()
+}))
 
 export type Proyecto = v.InferOutput<typeof proyectoSchema>
 
 export type proyectoData =  Pick<Proyecto,'clientename'|'proyectoName'|'description'>
+
+//Equipo/Miembros
+
+const EquipoSchema = v.pick(userSchema, ['name', 'email', '_id'])
+export const EquipoArregloSchema = v.array(EquipoSchema)
+export type EquipoArreglo = v.InferOutput<typeof EquipoArregloSchema>
+export type EquipoMiembros = v.InferOutput<typeof EquipoSchema>
+export type EquipoMiembrosForm = Pick<EquipoMiembros,'email'>
+
 

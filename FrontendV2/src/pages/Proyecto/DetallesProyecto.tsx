@@ -1,14 +1,18 @@
-import { Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom"
+import { Link, Navigate, useNavigate, useParams, useSearchParams } from "react-router-dom"
 import { useQuery } from "@tanstack/react-query"
 import { GetProyectoid } from "@/services/proyectoAPI"
 import AddTaskModal from "@/Components/Tareas/AgregaTareaModal"
 import ListaTareas from "@/Components/Tareas/ListaTareas"
 import EditarTareaData from "@/Components/Tareas/EditarTareaData"
 import TaskModalDetails from "@/Components/Tareas/TareaDetallesModal"
+import { useAuth } from "@/hooks/useAuth"
+import { isManager } from "@/utils/police"
 
 const DetallesProyecto = () => {
     const navigate = useNavigate()
     const [searchParams] = useSearchParams()
+
+    const {data:user, isLoading:authLo} = useAuth()
 
     const params = useParams()
     const proyectoid = params.proyectoid!
@@ -30,24 +34,30 @@ const DetallesProyecto = () => {
         navigate(`/proyecto/${proyectoid}`)
     }
 
-    if (isLoading) return <p className="text-white text-2xl text-center">Cargando..</p>
+    if (isLoading && authLo) return <p className="text-black  text-2xl text-center">Cargando..</p>
     if (isError) return <Navigate to="/" />
 
-    if (data) {
+    if (data && user) {
         return (
             <>
-                <h1 className="text-5xl text-white font-black">{data.proyectoName}</h1>
-                <p className="text-[#a7a9be] text-2xl font-light mt-6">{data.description}</p>
+                <h1 className="text-5xl text-black  font-black">{data.proyectoName}</h1>
+                <p className="text-text-muted text-2xl font-light mt-6">{data.description}</p>
 
-                <nav className="my-5 flex gap-3.5">
-                    <button
+                {isManager(data.Admin, user._id) && (
+
+                      <nav className="my-5 flex gap-3.5">
+                   <button
                         type="button"
                         onClick={openModal}
-                        className="px-8 py-4 bg-[#1A191F] hover:bg-white hover:text-black transition-colors text-white text-xl font-bold cursor-pointer"
+                        className="px-8 py-4 bg-panel-bg hover:bg-primary hover:text-input-text transition-colors text-white text-xl font-bold cursor-pointer"
                     >
                         Agregar Tarea
                     </button>
+                    <Link to='Members' className="px-8 py-4 bg-panel-bg hover:bg-primary hover:text-input-text transition-colors text-white text-xl font-bold cursor-pointer">
+                    Colaboradores
+                    </Link>
                 </nav>
+                )}  
                 <ListaTareas tarea={data.Tasks}/>
                 <AddTaskModal open={showModal} onClose={closeModal} />
                 <EditarTareaData/>

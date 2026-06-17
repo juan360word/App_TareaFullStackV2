@@ -41,3 +41,11 @@ export async function QuienEliminaTareas(req:Request,res:Response,next:NextFunct
         res.status(500).json({error: 'Hubo un Error'})
     }
 }
+export async function Autorizacion(req:Request,res:Response,next:NextFunction) {
+    if(req.user._id.toString() !== req.proyecto.Admin.toString()){
+        const error = new Error('NO')
+        return res.status(400).json({error: error.message})
+    }
+    
+    next()
+}

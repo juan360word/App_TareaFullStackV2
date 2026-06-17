@@ -7,7 +7,7 @@ import { ValidacionProyectosExistan } from "../Middleware/Proyecto";
 import { ValidacionTareasExistan, QuienEliminaTareas } from "../Middleware/Tarea";
 import { MiddlewareAuth } from "../Middleware/Auth";
 import { checkRole } from "../Middleware/CheckRole";
-
+import { Miembros } from "../Controllers/MiembrosController";
 
 
 const router = Router()
@@ -64,14 +64,20 @@ ValidacionProyectosExistan,ValidacionTareasExistan,QuienEliminaTareas,TareaContr
 
 // Router de miembros
 
+router.post('/:id/members/find',
+body('email').isEmail().withMessage('Email no valido'),
+entradaError,checkRole('admin'),Miembros.FindMember)
+
 router.post('/:id/members',
 param('id').isMongoId().withMessage('ID no valido'),
-body('userId').isMongoId().withMessage('ID de usuario no valido'),
-entradaError,checkRole('admin'),ProyectoController.AddMember)
+body('id').isMongoId().withMessage('ID de usuario no valido'),
+entradaError,checkRole('admin'),Miembros.AddMember)
 
 router.delete('/:id/members/:userId',
 param('id').isMongoId().withMessage('ID no valido'),
 param('userId').isMongoId().withMessage('ID de usuario no valido'),
-entradaError,checkRole('admin'),ProyectoController.RemoveMember)
+entradaError,checkRole('admin'),Miembros.RemoveMember)
+
+router.get('/:id/members',Miembros.Get)
 
 export default router

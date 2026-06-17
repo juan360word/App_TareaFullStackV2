@@ -32,18 +32,18 @@ export default function NewPasswordToken({ onTokenComplete, token, setToken }: N
     return (
         <>
             <div className="flex items-center justify-center mt-10">
-                <div className="flex flex-col gap-2.5 px-8 pb-4 bg-[#171717] rounded-[25px] transition-all duration-400 hover:scale-105 hover:border hover:border-black min-w-[550px]">
+                <div className="flex flex-col gap-2.5 px-8 pb-4 bg-panel-bg rounded-[25px] transition-all duration-400 hover:scale-105 hover:border hover:border-primary min-w-[550px]">
                     <p className="text-center my-8 tracking-widest text-white text-3xl font-medium">
                         Código de 6 dígitos
                     </p>
                     <div className="flex justify-center gap-5 mb-4">
                         <PinInput value={token} onChange={handleChange} onComplete={handleComplete}>
-                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-[#ff8906] rounded-xl text-[#ff8906] focus:outline-none focus:ring-2 focus:ring-[#ff8906]" />
-                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-[#ff8906] rounded-xl text-[#ff8906] focus:outline-none focus:ring-2 focus:ring-[#ff8906]" />
-                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-[#ff8906] rounded-xl text-[#ff8906] focus:outline-none focus:ring-2 focus:ring-[#ff8906]" />
-                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-[#ff8906] rounded-xl text-[#ff8906] focus:outline-none focus:ring-2 focus:ring-[#ff8906]" />
-                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-[#ff8906] rounded-xl text-[#ff8906] focus:outline-none focus:ring-2 focus:ring-[#ff8906]" />
-                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-[#ff8906] rounded-xl text-[#ff8906] focus:outline-none focus:ring-2 focus:ring-[#ff8906]" />
+                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-primary rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-primary rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-primary rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-primary rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-primary rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-primary" />
+                            <PinInputField className="h-14 w-14 text-center text-2xl font-black bg-transparent border-2 border-primary rounded-xl text-primary focus:outline-none focus:ring-2 focus:ring-primary" />
                         </PinInput>
                     </div>
                     <nav className="text-center mb-4">

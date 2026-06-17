@@ -44,15 +44,15 @@ export default function ListaTareas({ tarea }: tarealistProp) {
     return (
 
         <>
-            <h2 className="text-5xl font-black text-center  text-white  my-10"><TextAnimateDemo/></h2>
+            <h2 className="text-5xl font-black text-center  text-black my-10"><TextAnimateDemo/></h2>
 
             <div className='flex gap-5 overflow-x-scroll 2xl:overflow-auto pb-32'>
                 {Object.entries(groupedTasks).map(([status, tasks]) => (
                     <div key={status} className='min-w-[300px] text-white 2xl:min-w-0 2xl:w-1/5'>
-                        <h3 className={`text-center border-t-9 bg-[#1A191F] hover:bg-white hover:text-black capitalize p-3 ${coloresTarea[status]}`}>{DiccionarioTarea[status]}</h3>
+                        <h3 className={`text-center border-t-9 bg-panel-bg hover:bg-primary hover:text-input-text capitalize p-3 ${coloresTarea[status]}`}>{DiccionarioTarea[status]}</h3>
                         <ul className='mt-5 space-y-5'>
                             {tasks.length === 0 ? (
-                                <li className=" text-white text-xl text-center pt-3">No Hay tareas</li>
+                                <li className=" text-black text-xl text-center pt-3">No Hay tareas</li>
                             ) : (
                                 tasks.map(task => <CartaTarea key={task._id} tarea={task} />)
                             )}

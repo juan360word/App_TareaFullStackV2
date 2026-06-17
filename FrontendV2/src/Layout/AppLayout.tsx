@@ -14,11 +14,11 @@ const AppLayout = () => {
   if(isError) {
     return <Navigate to='/login'/>
   }
-  return (
+  if(data)return (
     
     <>
 
-    <header className=' py-5'>
+    <header className='py-5 bg-header-bg'>
         <div className='max-w-screen-2xl mx-auto flex flex-col lg:flex-row justify-between items-center'>
             <div className='w-64'>
               <Link to='/'>
@@ -26,7 +26,9 @@ const AppLayout = () => {
               </Link>
              
          </div>
-         <NavMenu/>
+         <NavMenu
+         name={data.name}
+         />
         </div>
     </header>
 
@@ -36,7 +38,7 @@ const AppLayout = () => {
     </section>
    
     <footer className='py-5'>
-        <p className=' text-white text-center'>
+        <p className=' text-black text-center'>
             Los derechos de esta pagina estan reservados {new Date().getFullYear()}
         </p>
     </footer>

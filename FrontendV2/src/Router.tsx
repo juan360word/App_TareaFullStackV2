@@ -11,6 +11,7 @@ import ConfirmarcionCuenta from "./pages/Auth/ConfirmarcionCuenta"
 import ReenvioCodigo from "./pages/Auth/ReenvioCodigo"
 import OlvidoClave from "./pages/Auth/OlvidoClave"
 import GenerarPWS from "./pages/Auth/GenerarPWS"
+import MiembrosQuien from "./pages/Proyecto/MiembrosQuien"
 
 export const Router = createBrowserRouter([
     {
@@ -32,6 +33,10 @@ export const Router = createBrowserRouter([
             {
                 path:'/proyecto/:proyectoid/creado',
                 element: <EditarProyecto/>
+            },
+            {
+                path:'/proyecto/:proyectoid/Members',
+                element: <MiembrosQuien/>
             }
         ]
     },

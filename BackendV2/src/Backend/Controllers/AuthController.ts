@@ -13,6 +13,13 @@ export class AuthController {
         try {
             // Se crea el usuario
             const users = new User(req.body)
+
+            // El primer usuario registrado será admin
+            const totalUsers = await User.countDocuments()
+            if(totalUsers === 0){
+                users.role = 'admin'
+            }
+
             const salt = await bcrypt.genSalt(10)
             // Hash de la contraseña
             users.pws = await bcrypt.hash(users.pws, salt)
@@ -218,5 +225,19 @@ export class AuthController {
        return res.json(req.user)
     }
 
+    static promoteToAdmin = async (req:Request,res:Response) => {
+        try {
+            const firstUser = await User.findOne().sort({createdAt: 1})
+            if(!firstUser || firstUser._id.toString() !== req.user!._id.toString()){
+                return res.status(403).json({error:'No puedes realizar esta accion'})
+            }
+            firstUser.role = 'admin'
+            await firstUser.save()
+            res.send('Ahora eres administrador')
+        } catch (error) {
+            console.log(error)
+            res.status(500).json({error:'Error al promover a admin'})
+        }
+    }
 
 }

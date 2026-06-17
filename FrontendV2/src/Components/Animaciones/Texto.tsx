@@ -16,3 +16,11 @@ export function TextAnimateTitulo() {
    
   )
 }
+export function TextAnimateMimebros() {
+  return (
+    <TextAnimate animation="blurInUp" by="character" once>
+      Administrador de Equipo/Miembros
+    </TextAnimate>
+   
+  )
+}

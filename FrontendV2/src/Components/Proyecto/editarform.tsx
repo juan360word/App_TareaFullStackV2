@@ -48,10 +48,10 @@ function EditarForm({ data,proyectoid }: EditarFormProps) {
     return (
         <div className="max-w-3xl mx-auto">
             <h1 className="text-5xl font-black text-white">Editar Proyecto</h1>
-            <p className="text-2xl font-light text-[#a7a9be] mt-5">Modifica el formulario y guarda los cambios</p>
+            <p className="text-2xl font-light text-text-muted mt-5">Modifica el formulario y guarda los cambios</p>
             <nav className="my-5">
                 <Link
-                    className="bg-[#1A191F] text-[#a7a9be] hover:bg-white hover:text-black px-10 py-3 font-bold cursor-pointer transition-colors"
+                    className="bg-panel-bg text-text-muted hover:bg-primary hover:text-input-text px-10 py-3 font-bold cursor-pointer transition-colors"
                     to="/"
                 >
                     Volver a Proyectos
@@ -67,7 +67,7 @@ function EditarForm({ data,proyectoid }: EditarFormProps) {
                 <input
                     type="submit"
                     value="Guardar Cambios"
-                    className="w-full p-3 bg-[#1A191F] text-[#a7a9be] hover:bg-white hover:text-black font-bold cursor-pointer transition-colors"
+                    className="w-full p-3 bg-panel-bg text-text-muted hover:bg-primary hover:text-input-text font-bold cursor-pointer transition-colors"
                 />
             </form>
         </div>

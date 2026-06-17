@@ -51,5 +51,9 @@ RouterAuth.get('/user',
     AuthController.user
 )
 
+RouterAuth.post('/promote',
+    MiddlewareAuth,
+    AuthController.promoteToAdmin
+)
 
 export default RouterAuth

@@ -12,7 +12,7 @@ export default function TaskForm({errors, register} : TaskFormProps) {
         <>
             <div className="flex flex-col gap-5">
                 <label
-                    className="font-normal text-[#a7a9be] text-2xl"
+                    className="font-normal text-text-muted text-2xl"
                     htmlFor="name"
                 >Nombre de la tarea</label>
                 <input
@@ -31,7 +31,7 @@ export default function TaskForm({errors, register} : TaskFormProps) {
 
             <div className="flex flex-col gap-5">
                 <label
-                    className="font-normal text-[#a7a9be] text-2xl"
+                    className="font-normal text-text-muted text-2xl"
                     htmlFor="description"
                 >Descripción de la tarea</label>
                 <textarea

@@ -39,10 +39,10 @@ const CreacionProyecto = () => {
     <>
     <div className="max-w-3xl mx-auto">
 
-     <h1 className="text-5xl font-black text-white">Crear Proyecto</h1>
-    <p className="text-2xl font-light text-[#a7a9be] mt-5">Llena el siguiente formulario</p>
+     <h1 className="text-5xl font-black text-black">Crear Proyecto</h1>
+    <p className="text-2xl font-light text-text-muted mt-5">Llena el siguiente formulario</p>
     <nav className="my-5">
-       <Link className="bg-[#1A191F] text-[#a7a9be] hover:bg-white hover:text-black  px-10 py-3 font-bold cursor-pointer transition-colors"
+       <Link className="bg-panel-bg text-text-muted hover:bg-primary hover:text-input-text px-10 py-3 font-bold cursor-pointer transition-colors"
         to='/'>
         Volver a Proyectos
     </Link>  
@@ -52,7 +52,7 @@ const CreacionProyecto = () => {
         <ProjectForm register={register} errors={errors}/>
         <input type="submit" 
         value="Crear Proyecto"
-        className="w-full p-3 bg-[#1A191F] text-[#a7a9be]  hover:bg-white hover:text-black font-bold cursor-pointer transition-colors"
+        className="w-full p-3 bg-panel-bg text-text-muted hover:bg-primary hover:text-input-text font-bold cursor-pointer transition-colors"
         />
        
     </form>

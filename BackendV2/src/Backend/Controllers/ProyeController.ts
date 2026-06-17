@@ -1,6 +1,6 @@
 import type  {Request,Response} from 'express'
 import Proyecto from '../../Models/Proyecto'
-import User from '../../Models/User'
+
 
 
 
@@ -53,7 +53,9 @@ export  class ProyectoController {
                     const error = new Error('Proyectos no encontrado')
                     return res.status(404).json({ error: error.message })
                 }
-                if(proyecto.Admin.toString() !== req.user._id.toString()){
+                const isAdmin = proyecto.Admin.toString() === req.user._id.toString()
+                const isMember = proyecto.Members.some(m => m.toString() === req.user._id.toString())
+                if(!isAdmin && !isMember){
                     const error = new Error('no valido')
                     return res.status(404).json({error:error.message})
                 }
@@ -111,63 +113,5 @@ export  class ProyectoController {
         
     }
 
-    static AddMember = async (req:Request,res:Response) => {
-        const {id} = req.params
-        const {userId} = req.body
-
-        try {
-            const proyecto = await Proyecto.findById(id)
-            if (!proyecto) {
-                const error = new Error('Proyecto no encontrado')
-                return res.status(404).json({ error: error.message })
-            }
-
-            if (proyecto.Admin.toString() !== req.user!._id.toString()) {
-                const error = new Error('Solo el admin puede agregar miembros')
-                return res.status(403).json({ error: error.message })
-            }
-
-            const user = await User.findById(userId)
-            if (!user) {
-                const error = new Error('Usuario no encontrado')
-                return res.status(404).json({ error: error.message })
-            }
-
-            if (proyecto.Members.some(m => m.toString() === userId)) {
-                const error = new Error('El usuario ya es miembro del proyecto')
-                return res.status(409).json({ error: error.message })
-            }
-
-            proyecto.Members.push(user._id)
-            await proyecto.save()
-            res.send('Miembro agregado correctamente')
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({ error: 'Error al agregar miembro' })
-        }
-    }
-
-    static RemoveMember = async (req:Request,res:Response) => {
-        const {id,userId} = req.params
-
-        try {
-            const proyecto = await Proyecto.findById(id)
-            if (!proyecto) {
-                const error = new Error('Proyecto no encontrado')
-                return res.status(404).json({ error: error.message })
-            }
-
-            if (proyecto.Admin.toString() !== req.user!._id.toString()) {
-                const error = new Error('Solo el admin puede eliminar miembros')
-                return res.status(403).json({ error: error.message })
-            }
-
-            proyecto.Members = proyecto.Members.filter(m => m.toString() !== userId)
-            await proyecto.save()
-            res.send('Miembro eliminado correctamente')
-        } catch (error) {
-            console.log(error)
-            res.status(500).json({ error: 'Error al eliminar miembro' })
-        }
-    }
+   
 }

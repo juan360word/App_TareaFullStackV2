@@ -81,14 +81,14 @@ export default function EditTaskModal({ open, onClose,data,tareaid }: EditTaskMo
                             leaveFrom="opacity-100 scale-100"
                             leaveTo="opacity-0 scale-95"
                         >
-                            <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-[#1A191F] text-left align-middle shadow-xl transition-all p-16">
+                            <Dialog.Panel className="w-full max-w-4xl transform overflow-hidden rounded-2xl bg-panel-bg text-left align-middle shadow-xl transition-all p-16">
                                 <Dialog.Title as="h3" className="font-black text-white text-4xl my-5">
                                     Editar Tarea
                                 </Dialog.Title>
 
-                                <p className="text-xl font-bold text-[#a7a9be]">
+                                <p className="text-xl font-bold text-text-muted">
                                     Realiza cambios a una tarea en{' '}
-                                    <span className="text-[#ff8906]">este formulario</span>
+                                    <span className="text-primary">este formulario</span>
                                 </p>
 
                                 <form
@@ -100,7 +100,7 @@ export default function EditTaskModal({ open, onClose,data,tareaid }: EditTaskMo
 
                                     <input
                                         type="submit"
-                                        className="w-full p-3 mt-3 rounded-xl bg-[#131219] text-[#a7a9be] hover:bg-white hover:text-black font-bold cursor-pointer transition-colors"
+                                        className="w-full p-3 mt-3 rounded-xl bg-card-bg text-text-muted hover:bg-primary hover:text-input-text font-bold cursor-pointer transition-colors"
                                         value="Guardar Tarea"
                                     />
                                 </form>

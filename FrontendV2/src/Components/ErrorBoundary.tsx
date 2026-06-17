@@ -27,7 +27,7 @@ class ErrorBoundary extends Component<Props, State> {
   render() {
     if (this.state.hasError) {
       return (
-        <div className="min-h-screen bg-[#0f0e17] flex items-center justify-center p-10">
+        <div className="min-h-screen bg-app-bg flex items-center justify-center p-10">
           <div className="bg-red-900/80 text-white p-8 rounded-2xl max-w-2xl">
             <h1 className="text-3xl font-bold mb-4">Error en la aplicación</h1>
             <p className="text-lg mb-4">Ocurrió un error inesperado:</p>
@@ -38,7 +38,7 @@ class ErrorBoundary extends Component<Props, State> {
               {this.state.error?.stack}
             </pre>
             <button
-              className="mt-6 px-6 py-3 bg-white text-black rounded-xl font-bold cursor-pointer hover:bg-gray-200"
+              className="mt-6 px-6 py-3 bg-primary text-input-text rounded-xl font-bold cursor-pointer hover:bg-primary-hover"
               onClick={() => window.location.reload()}
             >
               Recargar página

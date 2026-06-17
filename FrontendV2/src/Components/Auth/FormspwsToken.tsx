@@ -38,20 +38,20 @@ export default function NewPasswordForm({ token }: NewPasswordFormProps) {
         <>
             <form onSubmit={handleSubmit(handleNewPassword)} noValidate>
                 <div className="flex items-center justify-center mt-10">
-                    <div className="flex flex-col gap-2.5 px-8 pb-4 bg-[#171717] rounded-[25px] transition-all duration-400 hover:scale-105 hover:border hover:border-black min-w-[550px]">
+                    <div className="flex flex-col gap-2.5 px-8 pb-4 bg-panel-bg rounded-[25px] transition-all duration-400 hover:scale-105 hover:border hover:border-primary min-w-[550px]">
 
-                        <p className="text-center my-8 tracking-widest text-white text-3xl font-medium">
+                        <p className="text-center my-8 tracking-widest text-black text-3xl font-medium">
                             Nueva Contraseña
                         </p>
 
                         <div className="flex flex-col gap-2">
-                            <label className="text-[#a7a9be] text-sm uppercase font-bold pl-2">Password</label>
+                            <label className="text-text-muted text-sm uppercase font-bold pl-2">Password</label>
                             <div className="flex items-center gap-2 rounded-[25px] p-2.5" style={{ boxShadow: 'inset 2px 5px 10px rgb(5,5,5)' }}>
                                 <i className="ti ti-lock text-white text-lg" aria-hidden="true"/>
                                 <input
                                     type="password"
                                     placeholder="Nuevo Password"
-                                    className="bg-transparent border-none outline-none w-full text-[#d3d3d3] text-sm"
+                                    className="bg-transparent border-none outline-none w-full text-text-muted text-sm"
                                     {...register("pws", {
                                         required: "El Password es obligatorio",
                                         minLength: {
@@ -65,13 +65,13 @@ export default function NewPasswordForm({ token }: NewPasswordFormProps) {
                         </div>
 
                         <div className="flex flex-col gap-2">
-                            <label className="text-[#a7a9be] text-sm uppercase font-bold pl-2">Repetir Password</label>
+                            <label className="text-text-muted text-sm uppercase font-bold pl-2">Repetir Password</label>
                             <div className="flex items-center gap-2 rounded-[25px] p-2.5" style={{ boxShadow: 'inset 2px 5px 10px rgb(5,5,5)' }}>
                                 <i className="ti ti-lock text-white text-lg" aria-hidden="true"/>
                                 <input
                                     type="password"
                                     placeholder="Repite Password"
-                                    className="bg-transparent border-none outline-none w-full text-[#d3d3d3] text-sm"
+                                    className="bg-transparent border-none outline-none w-full text-text-muted text-sm"
                                     {...register("pws_confirmacion", {
                                         required: "Repetir Password es obligatorio",
                                         validate: value => value === password || 'Los Passwords no son iguales'
@@ -85,7 +85,7 @@ export default function NewPasswordForm({ token }: NewPasswordFormProps) {
                             <input
                                 type="submit"
                                 value="Establecer Password"
-                                className="w-full py-3 rounded-[25px] bg-[#252525] text-white hover:bg-white hover:text-black transition-colors duration-400 font-bold text-lg cursor-pointer"
+                                className="w-full py-3 rounded-[25px] bg-card-bg text-white hover:bg-primary hover:text-input-text transition-colors duration-400 font-bold text-lg cursor-pointer"
                             />
                         </div>
                     </div>
