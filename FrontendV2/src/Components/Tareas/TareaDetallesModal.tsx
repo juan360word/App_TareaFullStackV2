@@ -1,11 +1,10 @@
 import { Fragment } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
-import { useQueryClient, useQuery } from '@tanstack/react-query';
+import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { GetAPITareaID, UdpadateStats } from '@/services/TareaService';
 import { toast } from 'react-toastify';
 import { FormatoFecha } from '@/utils/utils';
-import { useMutation } from '@tanstack/react-query';
 import type { TaskEstado } from '@/types/type';
 
 
@@ -96,7 +95,16 @@ export default function TaskModalDetails() {
                                         className="font-black text-4xl text-white my-5"
                                     >{data.name}
                                     </DialogTitle>
+
                                     <p className='text-xl text-text-muted mb-2'>Descripción: {data.description} { }</p>
+                                    <p className='text-lg text-white'>Historial de cambios </p>
+                                    {data.cambioBy.length > 0 && data.cambioBy.map((cambio) => (
+                                        <p key={cambio._id}>
+                                            <span className='text-xl text-green-500'>Estado actualizado por{' '}</span>
+                                            {cambio.user?.name ?? 'Usuario desconocido'}
+                                            <span className='text-text-muted'> - {DiccionarioTarea[cambio.status] ?? cambio.status}</span>
+                                        </p>
+                                    ))}
                                     <div className='my-5 space-y-3 text-xl'>
                                         <label className='font-bold text-white '>Estado Actual: </label>
                                         <select name="" onChange={handle} defaultValue={data.estado} className='w-full mt-3 text-white bg-card-bg text-center rounded-xl mx-auto  p-2' id="">

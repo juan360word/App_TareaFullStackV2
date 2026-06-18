@@ -2,7 +2,7 @@ import type { Task } from "@/types/type"
 import { Menu, Transition } from "@headlessui/react"
 import { EllipsisVerticalIcon } from "@heroicons/react/20/solid"
 import { Fragment} from 'react'
-import { useNavigate, useParams } from "react-router-dom"
+import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { DeleteTarea } from "@/services/TareaService"
 import { toast } from "react-toastify"
@@ -19,6 +19,7 @@ export default function CartaTarea({ tarea }: cardprop) {
 
   const params = useParams()
   const proyectoid = params.proyectoid!
+  const location = useLocation()
  const QueryClient = useQueryClient()
   const {mutate} = useMutation({
     mutationFn : DeleteTarea ,

@@ -29,7 +29,7 @@ export default function EditarTareaData() {
         navigate(location.pathname)  // 👈 quita los query params de la URL
     }
 
-    if (isError) return <Navigate to={'/404'}/>
+    if (isError) return <Navigate to={`/proyecto/${proyectoid}`}/>
     if (data) return ( 
         <>
         <EditTaskModal

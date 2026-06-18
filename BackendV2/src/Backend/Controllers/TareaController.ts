@@ -31,7 +31,8 @@ export class TareaController {
 
     static GetTaskID = async (req:Request,res:Response) => {
         try {
-            res.json(req.task)
+            const tarea = await Task.findById(req.task._id).populate({path:'cambioBy.user',select:'id name email'})
+            res.json(tarea)
         } catch (error) {
             console.log(error)
             res.status(500).json({ error: 'Error Al traer las tareas' })
@@ -63,8 +64,15 @@ export class TareaController {
 
     static UpdateEstados = async (req:Request,res:Response) => {
       try {
+        const {status} = req.body
         req.task.estado = req.body.estado
         await req.task.save()
+        const data = {
+            user: req.user._id,
+            status
+        }
+       req.task.cambioBy.push(data)
+         
         res.send('Estado Actualizado')
       } catch (error) {
         console.log(error)

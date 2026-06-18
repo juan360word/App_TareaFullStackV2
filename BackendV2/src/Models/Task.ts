@@ -15,7 +15,11 @@ export type TaskType = Document & {
     name:string,
     description:string,
     proyectos:Types.ObjectId,
-    estado:TaskStatus
+    estado:TaskStatus,
+    cambioBy: {
+        user: Types.ObjectId,
+        status: TaskStatus
+    }[]
 }
 
 export const TaskSchema : Schema = new Schema ({
@@ -37,7 +41,23 @@ export const TaskSchema : Schema = new Schema ({
         type:String,
         enum:Object.values(taskStatus),
         default: taskStatus.PENDIENTE
-    }
+    },
+    cambioBy:[
+        {
+            user:{
+                type: Types.ObjectId,
+                ref:'user',
+                default:null
+            },
+            status:{
+                type:String,
+                enum:Object.values(taskStatus),
+                default: taskStatus.PENDIENTE
+            }
+        }
+    ]
+       
+    
 
 },{timestamps:true})
 

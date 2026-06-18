@@ -35,7 +35,12 @@ export const  TareaSchema = v.object({
     proyectos:v.string(),
     estado:taskStatusSchema,
     createdAt:v.string(),
-    updatedAt:v.string()
+    updatedAt:v.string(),
+    cambioBy:v.array(v.object({
+        _id: v.string(),
+        user: userSchema,
+        status: taskStatusSchema,
+      }))
 })
 
 export type Task = v.InferOutput<typeof TareaSchema >
