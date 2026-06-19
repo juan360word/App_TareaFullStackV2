@@ -25,6 +25,24 @@ export const userSchema = v.object({
 })
 export type User = v.InferOutput<typeof userSchema>
 
+
+// notas
+
+const NotaSchema = v.object({
+    _id:v.string(),
+    contenido:v.string(),
+    creadoby:userSchema,
+    tarea:v.string(),
+    creadoAt:v.string()
+})
+
+export type Nota =v.InferOutput<typeof NotaSchema>
+export type NotaData =Pick<Nota,'contenido'>
+
+
+
+
+
 // parte de tareas
 const taskStatusSchema = v.picklist(["pendiente", "enEspera", "enProgreso", "enRevision", "completada"])
 
@@ -40,7 +58,8 @@ export const  TareaSchema = v.object({
         _id: v.string(),
         user: userSchema,
         status: taskStatusSchema,
-      }))
+      })),
+    notas:v.array(NotaSchema)
 })
 
 export type Task = v.InferOutput<typeof TareaSchema >
@@ -76,5 +95,8 @@ export const EquipoArregloSchema = v.array(EquipoSchema)
 export type EquipoArreglo = v.InferOutput<typeof EquipoArregloSchema>
 export type EquipoMiembros = v.InferOutput<typeof EquipoSchema>
 export type EquipoMiembrosForm = Pick<EquipoMiembros,'email'>
+
+
+
 
 
