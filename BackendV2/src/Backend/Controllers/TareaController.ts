@@ -1,5 +1,6 @@
 import type  {Request,Response} from 'express'
 import Task from '../../Models/Task';
+import path from 'node:path';
 
 
 export class TareaController {
@@ -32,6 +33,7 @@ export class TareaController {
     static GetTaskID = async (req:Request,res:Response) => {
         try {
             const tarea = await Task.findById(req.task._id).populate({path:'cambioBy.user',select:'id name email'})
+            .populate({path:'notas',populate:{path:'creadoby',select:'id name email'}})
             res.json(tarea)
         } catch (error) {
             console.log(error)

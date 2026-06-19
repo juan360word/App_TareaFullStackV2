@@ -20,6 +20,7 @@ export type TaskType = Document & {
         user: Types.ObjectId,
         status: TaskStatus
     }[]
+    notas: Types.ObjectId[]
 }
 
 export const TaskSchema : Schema = new Schema ({
@@ -54,6 +55,12 @@ export const TaskSchema : Schema = new Schema ({
                 enum:Object.values(taskStatus),
                 default: taskStatus.PENDIENTE
             }
+        }
+    ],
+    notas:[
+        {
+            type:Types.ObjectId,
+            ref:'Nota'
         }
     ]
        

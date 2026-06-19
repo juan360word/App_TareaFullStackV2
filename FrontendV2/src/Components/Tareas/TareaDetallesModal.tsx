@@ -6,6 +6,7 @@ import { GetAPITareaID, UdpadateStats } from '@/services/TareaService';
 import { toast } from 'react-toastify';
 import { FormatoFecha } from '@/utils/utils';
 import type { TaskEstado } from '@/types/type';
+import { PanelNotas } from '../Notas/PanelNotas';
 
 
 const DiccionarioTarea: { [key: string]: string } = {
@@ -113,6 +114,10 @@ export default function TaskModalDetails() {
                                             ))}
                                         </select>
                                     </div>
+
+                                        <PanelNotas/>
+
+
                                 </DialogPanel>
                             </TransitionChild>
                         </div>
