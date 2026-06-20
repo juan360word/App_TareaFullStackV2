@@ -9,6 +9,7 @@ import {corsConfig} from './config/cors'
 import morgan from 'morgan'
 import RouterAuth from './Routes/AuthRouter';
 import NotasRouter from './Routes/NotasRouter';
+import RouterPerfil from './Routes/PerfilRouter';
 
 const server = express();
 server.use(express.json());
@@ -22,6 +23,7 @@ server.use(morgan('dev'))
 server.use('/api/Proyectos', router)
 server.use('/api/auth',RouterAuth)
 server.use('/api/Proyectos',NotasRouter)
+server.use('/api/auth',RouterPerfil)
 server.use(express.static(path.join(__dirname, '../../../FrontendV2/dist')))
 
 server.use((req, res) => {

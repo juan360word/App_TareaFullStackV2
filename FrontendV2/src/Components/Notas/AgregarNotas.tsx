@@ -3,7 +3,7 @@ import type { NotaData } from '@/types/type'
 
 import {useForm} from 'react-hook-form'
 import Error from '../Error'
-import {useMutation}  from '@tanstack/react-query'
+import {useMutation, useQueryClient}  from '@tanstack/react-query'
 import { CreacionNota } from '@/services/NotaApi'
 import { toast } from 'react-toastify'
 import { useLocation, useParams } from 'react-router-dom'
@@ -12,7 +12,7 @@ export const AgregarNotas = () => {
    
   const param = useParams()
   const location = useLocation()
-  const proyectoId = param.proyectoId!
+  const proyectoId = param.proyectoid!
   
   const queryParams = new URLSearchParams(location.search)
   const tareaID = queryParams.get('VerTareaid')
@@ -25,7 +25,7 @@ export const AgregarNotas = () => {
 
   const {register,handleSubmit,reset,formState:{errors}} =  useForm({defaultValues:inicialValues})
 
-  
+  const QueryClient = useQueryClient()
 
   const {mutate} = useMutation({
     mutationFn: CreacionNota,
@@ -34,7 +34,7 @@ export const AgregarNotas = () => {
     },
     onSuccess:(data) => {
       toast.success(data)
-      
+      QueryClient.invalidateQueries({queryKey:['TareaDetalles',tareaID]})
     }
   })
 

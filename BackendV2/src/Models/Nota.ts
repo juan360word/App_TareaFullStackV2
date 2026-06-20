@@ -16,7 +16,7 @@ const NotaSchema = new Schema ({
     },
     creadoby:{
         type:Types.ObjectId,
-        ref:'User',
+        ref:'user',
         required: true
     },
     tarea:{

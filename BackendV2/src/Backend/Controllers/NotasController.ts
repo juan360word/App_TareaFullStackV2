@@ -19,12 +19,14 @@ export class NotaController{
             note.creadoby = req.user._id
             note.tarea = req.task._id
 
+            if (!req.task.notas) req.task.notas = []
             req.task.notas.push(note._id)
 
-            await Promise.allSettled([req.task.save(),note.save()])
-            res.send('La nota fue creada correctamente')
+            await Promise.all([req.task.save(),note.save()])
+            res.status(201).json({msg: 'La nota fue creada correctamente'})
         } catch (error) {
-            res.status(500).json({ error: 'No se pudo crear la Nota' })
+            console.log('Error al crear nota:', error)
+            res.status(500).json({ error: error instanceof Error ? error.message : 'No se pudo crear la Nota' })
         }
     }
 
@@ -33,7 +35,8 @@ export class NotaController{
             const note = await Notas.find({tarea: req.task._id})
             res.json(note)
         } catch (error) {
-            res.status(500).json({ error: 'No se pudo traer la Nota' })
+            console.log('Error al obtener notas:', error)
+            res.status(500).json({ error: error instanceof Error ? error.message : 'No se pudo traer la Nota' })
         }
     }
     static EliminarNota = async (req:Request<NotaParams>,res:Response) => {
@@ -51,11 +54,12 @@ export class NotaController{
            }
            req.task.notas = req.task.notas.filter(notas => notas.toString() !== notasId.toString())
 
-           await Promise.allSettled([req.task.save(),nota.deleteOne()])
+           await Promise.all([req.task.save(),nota.deleteOne()])
            res.send('Nota eliminada')
 
         } catch (error) {
-            res.status(500).json({ error: 'No se permitio eliminar la Nota  ' })
+            console.log('Error al eliminar nota:', error)
+            res.status(500).json({ error: error instanceof Error ? error.message : 'No se permitio eliminar la Nota' })
         }
     }
 }

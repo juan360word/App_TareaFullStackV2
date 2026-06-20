@@ -12,6 +12,9 @@ import ReenvioCodigo from "./pages/Auth/ReenvioCodigo"
 import OlvidoClave from "./pages/Auth/OlvidoClave"
 import GenerarPWS from "./pages/Auth/GenerarPWS"
 import MiembrosQuien from "./pages/Proyecto/MiembrosQuien"
+import Perfil from "./Components/Perfil/Perfil"
+import  ActualizarClavePerfil  from "./Components/Perfil/ActualizarClavePerfil"
+import PerfilLayout from "./Layout/PerfilLayout"
 
 export const Router = createBrowserRouter([
     {
@@ -37,7 +40,23 @@ export const Router = createBrowserRouter([
             {
                 path:'/proyecto/:proyectoid/Members',
                 element: <MiembrosQuien/>
+            },
+            {
+                path:'/perfil',
+                element:<PerfilLayout/>,
+                children:[
+                {
+                    index:true,
+                    element:<Perfil/>
+                },
+                {
+                    path:'/perfil/ActualizarPWS',
+                    element:<ActualizarClavePerfil/>
+                }
+                ]
             }
+            
+            
         ]
     },
     {

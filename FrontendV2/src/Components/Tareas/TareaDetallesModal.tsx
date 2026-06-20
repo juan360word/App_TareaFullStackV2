@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, useEffect } from 'react';
 import { Dialog, DialogPanel, DialogTitle, Transition, TransitionChild } from '@headlessui/react';
 import { useQueryClient, useQuery, useMutation } from '@tanstack/react-query';
 import { Navigate, useLocation, useNavigate, useParams } from 'react-router-dom';
@@ -55,9 +55,13 @@ export default function TaskModalDetails() {
         const data = {proyectoid,tareaid,estado}
         mutate(data)
     }
+    useEffect(() => {
+        if (isError) {
+            toast.error(error.message, { toastId: 'error' })
+        }
+    }, [isError, error])
 
     if (isError) {
-        toast.error(error.message, { toastId: 'error' })
         return <Navigate to={`/proyecto/${proyectoid}`} />
     }
 

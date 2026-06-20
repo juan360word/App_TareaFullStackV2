@@ -56,4 +56,8 @@ RouterAuth.post('/promote',
     AuthController.promoteToAdmin
 )
 
+
+
+
+
 export default RouterAuth

@@ -24,3 +24,11 @@ export function TextAnimateMimebros() {
    
   )
 }
+export function TextPerfil() {
+  return (
+    <TextAnimate animation="blurInUp" by="character" once>
+      Mi perfil
+    </TextAnimate>
+   
+  )
+}

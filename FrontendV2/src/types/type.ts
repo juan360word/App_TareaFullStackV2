@@ -6,7 +6,8 @@ const authSchema = v.object({
     email: v.pipe(v.string(),v.email()),
     pws: v.string(),
     pws_confirmacion: v.string(),
-    token: v.string()
+    token: v.string(),
+    current_password:v.string()
 })
 
 export  type Auth = v.InferOutput<typeof authSchema>
@@ -15,6 +16,7 @@ export type UsuarioRegister = Pick<Auth, 'name' | 'email' | 'pws' | 'pws_confirm
 export type Reenviocodigo =Pick<Auth,  'email'  >
 export type olvidoclave =Pick<Auth,  'email'  >
 export type NewPasswordForm =Pick<Auth,  'pws' | 'pws_confirmacion'  >
+export type ActualizarPWS =Pick<Auth, 'current_password' |  'pws' | 'pws_confirmacion'  >
 
 
 export type confirmacionToken = Pick<Auth,'token'>
@@ -24,7 +26,7 @@ export const userSchema = v.object({
     _id: v.string()
 })
 export type User = v.InferOutput<typeof userSchema>
-
+export type UserPerfil = Pick<User,'name' | 'email'>
 
 // notas
 
@@ -33,7 +35,7 @@ const NotaSchema = v.object({
     contenido:v.string(),
     creadoby:userSchema,
     tarea:v.string(),
-    creadoAt:v.string()
+    createdAt:v.string()
 })
 
 export type Nota =v.InferOutput<typeof NotaSchema>

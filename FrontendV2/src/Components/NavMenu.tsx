@@ -37,9 +37,9 @@ export default function NavMenu({name}:navprops) {
       >
         <Popover.Panel className="absolute left-1/2 z-10 mt-5 flex w-screen lg:max-w-min -translate-x-1/2 lg:-translate-x-48">
           <div className="w-full lg:w-56 shrink rounded-xl bg-panel-bg p-4 text-sm font-semibold leading-6 text-primary shadow-lg ring-1 ring-border-soft">
-            <p className='text-center'>Hola: {name}</p>
+            <p className='text-center p-3'>Hola: {name}</p>
             <Link
-              to='/profile'
+              to='/perfil'
               className='block p-2 hover:text-primary'
             >Mi Perfil</Link>
             <Link
@@ -47,7 +47,7 @@ export default function NavMenu({name}:navprops) {
               className='block p-2 hover:text-primary'
             >Mis Proyectos</Link>
             <button
-              className='block p-2 hover:text-primary'
+              className='block p-2 cursor-pointer hover:text-primary'
               type='button'
               onClick={logout}
             >
