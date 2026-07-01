@@ -6,6 +6,9 @@ import { useLocation, useNavigate, useParams } from "react-router-dom"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { DeleteTarea } from "@/services/TareaService"
 import { toast } from "react-toastify"
+import {useDraggable} from '@dnd-kit/core'
+
+
 type cardprop = {
   tarea: Task
 }
@@ -16,7 +19,9 @@ type cardprop = {
 
 export default function CartaTarea({ tarea }: cardprop) {
 
-
+  const {attributes,listeners,setNodeRef,transform} = useDraggable({
+    id: tarea._id
+  })
   const params = useParams()
   const proyectoid = params.proyectoid!
   const location = useLocation()
@@ -33,11 +38,15 @@ export default function CartaTarea({ tarea }: cardprop) {
 })
 
   const navigate = useNavigate()
+  const style = transform ? {
+    transform:`translate3d(${transform.x}px,${transform.y}px,0)`
+  }: undefined
   return (
 
     <>
-      <li className="p-5 bg-panel-bg text-white flex justify-between gap-4">
+      <li ref={setNodeRef} {...listeners} {...attributes} style={style} className="p-5 bg-panel-bg text-white flex justify-between gap-4">
         <div className="flex flex-col min-w-0 gap-y-4 flex-1">
+          
           <button type="button" className="text-xl text-white  font-bold text-left text-text-muted break-words" >
             {tarea.name}
             <p className="text-text-muted ">{tarea.description}</p>
